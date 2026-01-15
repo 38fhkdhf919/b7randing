@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZKLB6MGZL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // 접속 경로 자동 수집을 포함한 기본 설정
+      gtag('config', 'G-8ZKLB6MGZL', {
+        'send_page_view': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 파비콘 설정 -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     
-    <!-- SEO 기본 설정 -->
     <title>빗썸 신규가입 7만원 이벤트 혜택 받는 법 (2026년 1월 최신 조건)</title>
     <meta name="description" content="빗썸 신규가입 7만원 혜택 수령 가이드! 친구초대 리워드 5만원과 가입 축하 투자지원금 2만원을 2026년 1월 변경된 최신 조건으로 초간단 완벽 정리해 드립니다.">
     <meta name="keywords" content="빗썸 7만원, 빗썸 신규가입, 빗썸 초대코드, 빗썸 이벤트, 빗썸 리퍼럴, GYYE7EEGC6, 빗썸 가입 혜택">
     <meta name="author" content="Bithumb 70K Guide">
 
-    <!-- 네이버/카카오 오픈 그래프(OG) 설정 -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="빗썸 신규가입 7만원 혜택 완벽 정리 (2026년 1월)">
     <meta property="og:description" content="단 3분! 계좌 연결만으로 7만원 받는 최신 조건을 확인하세요. 초대코드: GYYE7EEGC6">
     <meta property="og:image" content="">
     <meta property="og:url" content="https://www.snack-test.com/">
 
-    <!-- 검색 엔진 구조화 데이터 (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -167,7 +176,6 @@
 </head>
 <body class="text-slate-900 leading-relaxed">
 
-    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center">
@@ -177,7 +185,7 @@
                 <a href="#steps" class="hover:text-bithumb-orange transition">수령 방법</a>
                 <a href="#withdrawal" class="hover:text-bithumb-orange transition">출금 가이드</a>
                 <a href="#faq" class="hover:text-bithumb-orange transition">FAQ</a>
-                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-black transition active:scale-95">지금 가입하기</a>
+                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-black transition active:scale-95" data-location="header">지금 가입하기</a>
             </nav>
             <div class="md:hidden text-bithumb-orange font-bold text-xs uppercase tracking-widest text-right">Update 2026.01</div>
         </div>
@@ -185,8 +193,7 @@
 
     <main class="max-w-6xl mx-auto pb-32">
         
-        <!-- Hero Section -->
-        <section class="bg-bithumb-gradient pt-16 pb-24 px-6 text-white text-center relative overflow-hidden md:rounded-b-[4rem]">
+        <section id="section-top" class="bg-bithumb-gradient pt-16 pb-24 px-6 text-white text-center relative overflow-hidden md:rounded-b-[4rem]">
             <div class="relative z-10 max-w-4xl mx-auto">
                 <div class="flex flex-wrap justify-center gap-2 mb-6">
                     <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold border border-white/30 tracking-tight">2026년 1월 기준 최신 조건 반영</span>
@@ -203,10 +210,8 @@
             <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-[80px]"></div>
         </section>
 
-        <!-- 신뢰 및 팩트체크 섹션 (부드러운 커스텀 아코디언) -->
-        <section class="max-w-6xl mx-auto px-6 mt-12 mb-16">
+        <section id="section-factcheck" class="max-w-6xl mx-auto px-6 mt-12 mb-16">
             <div class="bg-slate-800 text-white rounded-[2.5rem] shadow-2xl relative overflow-hidden border border-slate-700">
-                <!-- 아코디언 헤더 -->
                 <button id="factCheckBtn" class="w-full text-left p-8 md:p-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 outline-none hover:bg-slate-700/50 transition-colors">
                     <div class="flex-1 text-center md:text-left pointer-events-none">
                         <div class="flex items-center justify-center md:justify-start space-x-2 mb-4 text-bithumb-orange font-bold text-sm tracking-widest uppercase">
@@ -223,7 +228,6 @@
                     </div>
                 </button>
                 
-                <!-- 부드럽게 펼쳐지는 컨텐츠 영역 -->
                 <div id="factCheckContent" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
                     <div class="overflow-hidden">
                         <div class="p-8 md:p-12 pt-0 md:pt-0 relative z-10">
@@ -250,16 +254,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- 배경 장식 -->
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-slate-700/30 rounded-full blur-3xl pointer-events-none"></div>
             </div>
         </section>
 
         <div class="px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
-            <!-- Left Side -->
             <div class="lg:col-span-8 space-y-16">
                 
-                <!-- Steps Section -->
                 <section id="steps" class="scroll-mt-28">
                     <h2 class="text-3xl font-black mb-4 flex items-center tracking-tight text-slate-800">
                         <span class="w-2 h-8 bg-bithumb-orange rounded-full mr-4"></span>
@@ -272,13 +273,12 @@
                     </p>
                     
                     <div class="space-y-10">
-                        <!-- STEP 01 -->
-                        <div class="relative group">
+                        <div id="section-step1" class="relative group">
                             <span class="badge-step font-black tracking-tighter">STEP 01</span>
                             <article class="step-card border-l-8 border-l-slate-900">
                                 <h3 class="font-black text-xl text-slate-800 mb-3">빗썸 앱 설치 및 가입하기</h3>
                                 <p class="text-slate-500 mb-6 font-medium text-sm md:text-base">아래 버튼을 클릭하여 앱을 설치하고 회원가입을 완료하세요.</p>
-                                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="block w-full md:w-max bg-slate-900 text-white text-center px-10 py-4 rounded-2xl font-black text-base hover:bg-black transition shadow-xl shadow-slate-200 active:scale-[0.98] mb-6">
+                                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link block w-full md:w-max bg-slate-900 text-white text-center px-10 py-4 rounded-2xl font-black text-base hover:bg-black transition shadow-xl shadow-slate-200 active:scale-[0.98] mb-6" data-location="step1">
                                     빗썸 공식 앱 설치 및 가입
                                 </a>
                                 <div class="img-container" data-placeholder="STEP01.jpg">
@@ -287,8 +287,7 @@
                             </article>
                         </div>
 
-                        <!-- STEP 02-1 -->
-                        <div class="relative">
+                        <div id="section-step2-1" class="relative">
                             <span class="badge-step font-black tracking-tighter">STEP 02-1</span>
                             <article class="step-card">
                                 <h3 class="font-black text-xl text-slate-800 mb-3">고객확인(KYC) 인증</h3>
@@ -299,8 +298,7 @@
                             </article>
                         </div>
 
-                        <!-- STEP 02-2 -->
-                        <div class="relative">
+                        <div id="section-step2-2" class="relative">
                             <span class="badge-step font-black tracking-tighter">STEP 02-2</span>
                             <article class="step-card">
                                 <h3 class="font-black text-xl text-slate-800 mb-3">KB국민은행 계좌연결</h3>
@@ -311,8 +309,7 @@
                             </article>
                         </div>
 
-                        <!-- FINAL STEP -->
-                        <div class="relative">
+                        <div id="section-final" class="relative">
                             <span class="badge-final font-black tracking-tighter italic">FINAL STEP</span>
                             <article class="step-card final-step-active">
                                 <h3 class="font-black text-2xl text-slate-900 mb-3 text-center md:text-left">초대코드 등록 (필수!)</h3>
@@ -320,7 +317,7 @@
                                 
                                 <div class="bg-gray-900 rounded-[2rem] p-6 flex flex-col md:flex-row items-center justify-between mb-6 border-b-8 border-bithumb-orange gap-4 shadow-2xl">
                                     <span class="font-mono text-3xl font-black text-white tracking-[0.2em]">GYYE7EEGC6</span>
-                                    <button onclick="copyCode()" class="w-full md:w-auto bg-bithumb-orange text-white px-8 py-4 rounded-2xl text-lg font-black active:scale-95 transition hover:bg-orange-600">복사하기</button>
+                                    <button onclick="copyCode('body-center')" class="ga-copy-btn w-full md:w-auto bg-bithumb-orange text-white px-8 py-4 rounded-2xl text-lg font-black active:scale-95 transition hover:bg-orange-600">복사하기</button>
                                 </div>
                                 
                                 <div class="img-container !bg-white" data-placeholder="STEP04.jpg">
@@ -334,8 +331,7 @@
                     </div>
                 </section>
 
-                <!-- Proof Section -->
-                <section id="proof-section" class="scroll-mt-28">
+                <section id="section-proof" class="scroll-mt-28">
                     <div class="bg-slate-900 rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden shadow-2xl">
                         <div class="relative z-10 text-center md:text-left">
                             <h2 class="text-3xl font-black mb-3 italic underline decoration-bithumb-orange underline-offset-[12px]">Payment Proof</h2>
@@ -348,7 +344,7 @@
                     </div>
                 </section>
 
-                <section id="withdrawal" class="scroll-mt-28 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                <section id="section-withdrawal" class="scroll-mt-28 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
                     <h2 class="text-2xl font-black mb-8 flex items-center text-slate-800">현금 출금 및 유의사항</h2>
                     <div class="space-y-4">
                         <details class="group border border-slate-100 rounded-2xl overflow-hidden">
@@ -363,7 +359,7 @@
                     </div>
                 </section>
 
-                <section id="faq" class="scroll-mt-28">
+                <section id="section-faq" class="scroll-mt-28">
                     <h2 class="text-2xl font-black mb-8 text-slate-800">자주 묻는 질문 (FAQ)</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm leading-relaxed">
                         <article class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
@@ -378,7 +374,6 @@
                 </section>
             </div>
 
-            <!-- Right Sidebar -->
             <aside class="lg:col-span-4 relative">
                 <div class="sticky-sidebar lg:sticky space-y-6">
                     <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
@@ -402,24 +397,22 @@
                             </div>
                         </div>
 
-                        <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="block w-full bg-bithumb-orange text-white text-center py-5 rounded-[1.5rem] font-black text-lg hover:shadow-2xl hover:shadow-orange-200 transition active:scale-95 shadow-lg shadow-orange-100 mb-6">
+                        <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link block w-full bg-bithumb-orange text-white text-center py-5 rounded-[1.5rem] font-black text-lg hover:shadow-2xl hover:shadow-orange-200 transition active:scale-95 shadow-lg shadow-orange-100 mb-6" data-location="sidebar">
                             7만원 받고 가입하기
                         </a>
 
                         <div class="bg-slate-900 rounded-2xl p-6 text-center shadow-inner">
                             <p class="text-slate-500 text-[10px] mb-3 uppercase tracking-widest font-black">필수 초대코드</p>
                             <div class="font-mono text-2xl font-black text-white tracking-widest mb-4">GYYE7EEGC6</div>
-                            <button onclick="copyCode()" class="w-full bg-white/10 text-white py-3 rounded-xl text-sm font-bold hover:bg-white/20 transition border border-white/5">초대코드 복사하기</button>
+                            <button onclick="copyCode('sidebar')" class="ga-copy-btn w-full bg-white/10 text-white py-3 rounded-xl text-sm font-bold hover:bg-white/20 transition border border-white/5">초대코드 복사하기</button>
                         </div>
                     </div>
                 </div>
             </aside>
         </div>
 
-        <!-- SEO 최적화 푸터 섹션 (New) -->
         <footer class="mt-32 border-t border-slate-200 bg-slate-50 pt-20 pb-28 md:pb-20">
             <div class="max-w-6xl mx-auto px-6">
-                <!-- 상단 요약 정보 (구조화 데이터 강조) -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 pb-12 border-b border-slate-200">
                     <div class="md:col-span-1">
                         <div class="font-black text-2xl tracking-tighter bg-slate-900 text-white px-3 py-1 rounded inline-block mb-4">BITHUMB 70K</div>
@@ -445,7 +438,6 @@
                     </div>
                 </div>
 
-                <!-- 키워드 & 내비게이션 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
                     <div>
                         <h5 class="text-slate-900 font-black text-sm mb-4 italic">Bithumb SEO Keywords</h5>
@@ -470,7 +462,6 @@
                     </div>
                 </div>
 
-                <!-- 면책 조항 및 하단 정보 -->
                 <div class="text-center pt-10 border-t border-slate-200">
                     <p class="text-[11px] text-slate-400 leading-relaxed font-medium italic mb-4 max-w-2xl mx-auto">
                         본 페이지는 빗썸 리퍼럴 파트너 활동의 일환으로 정보를 제공하며 가입에 따른 리워드를 수령할 수 있습니다. 가상자산 투자는 원금 손실의 위험이 있으며 모든 투자의 책임은 본인에게 있습니다. 빗썸의 이벤트 조건 및 혜택은 거래소 사정에 따라 예고 없이 변경될 수 있으므로 반드시 공식 앱을 통해 최종 확인하시기 바랍니다.
@@ -484,17 +475,15 @@
 
     </main>
 
-    <!-- Mobile Bottom CTA -->
     <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 z-50">
         <div class="bg-white/95 backdrop-blur-2xl p-2 rounded-[2.5rem] shadow-2xl border border-white/50 flex space-x-2">
-            <button onclick="copyCode()" class="flex-1 bg-slate-100 text-slate-800 h-14 rounded-full font-black text-sm active:scale-95 transition">코드복사</button>
-            <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="flex-[2.5] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg shadow-orange-300 active:scale-95 transition">
+            <button onclick="copyCode('mobile-cta')" class="ga-copy-btn flex-1 bg-slate-100 text-slate-800 h-14 rounded-full font-black text-sm active:scale-95 transition">코드복사</button>
+            <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link flex-[2.5] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg shadow-orange-300 active:scale-95 transition" data-location="mobile-cta">
                 7만원 즉시 받기
             </a>
         </div>
     </div>
 
-    <!-- Notification Toast -->
     <div id="copyToast" class="copy-notification font-black text-sm">초대코드가 복사되었습니다! 📋</div>
 
     <script>
@@ -511,10 +500,13 @@
             } else {
                 factCheckContent.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
                 factCheckArrow.classList.add('rotate-180');
+                // 팩트체크를 열었을 때 이벤트 로깅
+                gtag('event', 'fact_check_open', { 'event_category': 'engagement' });
             }
         });
 
-        function copyCode() {
+        // 초대코드 복사 함수 (GA 이벤트 통합)
+        function copyCode(location) {
             const code = "GYYE7EEGC6";
             const tempInput = document.createElement("input");
             tempInput.value = code;
@@ -523,6 +515,13 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
             
+            // GA 이벤트 전송
+            gtag('event', 'copy_invite_code', {
+                'event_category': 'engagement',
+                'event_label': '초대코드 복사',
+                'button_location': location
+            });
+
             const toast = document.getElementById("copyToast");
             toast.style.display = "block";
             setTimeout(() => { toast.style.display = "none"; }, 2000);
@@ -532,6 +531,59 @@
             const header = document.querySelector('header');
             if (window.scrollY > 50) header.classList.add('shadow-md');
             else header.classList.remove('shadow-md');
+        });
+
+        // --- GA 심화 추적 스크립트 ---
+
+        // 1. 가입 버튼 클릭 추적 (이탈 시점 확인)
+        document.querySelectorAll('.ga-signup-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const location = this.getAttribute('data-location');
+                gtag('event', 'click_signup_link', {
+                    'event_category': 'conversion',
+                    'event_label': '가입 페이지 이동',
+                    'click_location': location
+                });
+            });
+        });
+
+        // 2. 섹션별 도달(스크롤) 추적: Intersection Observer 활용
+        const trackingSections = [
+            { id: 'section-top', name: '히어로 섹션' },
+            { id: 'section-factcheck', name: '팩트체크' },
+            { id: 'section-step1', name: 'Step 1 설치' },
+            { id: 'section-step2-1', name: 'Step 2-1 KYC' },
+            { id: 'section-step2-2', name: 'Step 2-2 계좌연결' },
+            { id: 'section-final', name: 'Final Step 코드등록' },
+            { id: 'section-proof', name: '수령인증' },
+            { id: 'section-withdrawal', name: '출금가이드' },
+            { id: 'section-faq', name: '자주묻는질문' }
+        ];
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.3 // 섹션이 30% 이상 노출될 때 체크
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    gtag('event', 'section_view', {
+                        'section_id': entry.target.id,
+                        'section_name': entry.target.getAttribute('data-section-name')
+                    });
+                    // 중복 전송 방지를 위해 한 번 보고 나면 관찰 중단
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        trackingSections.forEach(section => {
+            const el = document.getElementById(section.id);
+            if (el) {
+                el.setAttribute('data-section-name', section.name);
+                observer.observe(el);
+            }
         });
     </script>
 </body>
