@@ -522,7 +522,7 @@
         }
 
         function scheduleNextToast() {
-            const delay = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+            const delay = Math.floor(Math.random() * (60000 - 10000 + 1)) + 10000;
             setTimeout(() => {
                 showLiveToast();
                 scheduleNextToast();
