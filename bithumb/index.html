@@ -1,83 +1,100 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 구글 태그 매니저 (기존 유지) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZKLB6MGZL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      // 접속 경로 자동 수집을 포함한 기본 설정
-      gtag('config', 'G-8ZKLB6MGZL', {
-        'send_page_view': true,
-        'cookie_flags': 'SameSite=None;Secure'
-      });
+      gtag('config', 'G-8ZKLB6MGZL', { 'send_page_view': true, 'cookie_flags': 'SameSite=None;Secure' });
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     
-    <title>빗썸 신규가입 7만원 이벤트 혜택 받는 법 (2026년 1월 최신 조건)</title>
-    <meta name="description" content="빗썸 신규가입 7만원 혜택 수령 가이드! 친구초대 리워드 5만원과 가입 축하 투자지원금 2만원을 2026년 1월 변경된 최신 조건으로 초간단 완벽 정리해 드립니다.">
-    <meta name="keywords" content="빗썸 7만원, 빗썸 신규가입, 빗썸 초대코드, 빗썸 이벤트, 빗썸 리퍼럴, GYYE7EEGC6, 빗썸 가입 혜택">
-    <meta name="author" content="Bithumb 70K Guide">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="빗썸 신규가입 7만원 혜택 완벽 정리 (2026년 1월)">
-    <meta property="og:description" content="단 3분! 계좌 연결만으로 7만원 받는 최신 조건을 확인하세요. 초대코드: GYYE7EEGC6">
-    <meta property="og:image" content="">
-    <meta property="og:url" content="https://www.snack-test.com/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "빗썸 7만원 혜택 수령 가이드",
-      "description": "2026년 1월 기준 빗썸 신규가입 7만원 이벤트 참여 방법 완벽 가이드",
-      "mainEntity": {
-        "@type": "HowTo",
-        "name": "빗썸 7만원 리워드 수령 방법",
-        "step": [
-          { "@type": "HowToStep", "text": "빗썸 앱 설치 및 회원가입" },
-          { "@type": "HowToStep", "text": "고객확인(KYC) 인증 완료" },
-          { "@type": "HowToStep", "text": "KB국민은행 계좌 연결" },
-          { "@type": "HowToStep", "text": "초대코드 GYYE7EEGC6 등록" }
-        ]
-      }
-    }
-    </script>
+    <title>빗썸 신규가입 7만원 이벤트 가이드 - 2026년 1월 최신</title>
+    <meta name="description" content="초보자도 5분 만에 끝내는 빗썸 신규가입 7만원 수령 가이드. 국민은행 계좌만 있으면 7만원 혜택을 확실하게 받으실 수 있습니다.">
+    <meta name="keywords" content="빗썸 7만원, 빗썸 가이드, 빗썸 신규가입, 빗썸 초대코드, GYYE7EEGC6">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f8fafc;
-        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
         .bithumb-orange { color: #ff5d00; }
         .bg-bithumb-orange { background-color: #ff5d00; }
-        .bg-bithumb-gradient {
-            background: linear-gradient(135deg, #ff5d00 0%, #ff8235 100%);
+        .bg-bithumb-gradient { background: linear-gradient(135deg, #ff5d00 0%, #ff8235 100%); }
+        
+        /* 페이지 진행바 */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ff5d00;
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
         }
+
+        /* 스텝 카드 */
         .step-card {
             background: white;
             border-radius: 1.5rem;
             padding: 1.5rem;
             box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
             border: 1px solid #f1f5f9;
-            transition: transform 0.2s ease;
         }
-        .step-card:hover { transform: translateY(-2px); }
         .final-step-active {
             border: 3px solid #ff5d00;
             background-color: #fffaf7;
-            box-shadow: 0 10px 20px -5px rgba(255, 93, 0, 0.2);
         }
+
+        /* 이미지 컨테이너 */
+        .img-container {
+            background-color: #f1f5f9;
+            border: 2px dashed #e2e8f0;
+            border-radius: 1rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .img-container.loaded { border: none; background: transparent; }
+        .img-container img { display: none; width: 100%; }
+        .img-container.loaded img { display: block; }
+        .img-container.img-error::after { content: "이미지 로드 실패"; color: #ef4444; }
+
+        /* 실시간 알림 토스트 */
+        #live-toast {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 60;
+            transform: translateY(150%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        #live-toast.show { transform: translateY(0); opacity: 1; }
+        
+        /* 텍스트 크기 반응형 최적화 */
+        .brand-text {
+            font-size: clamp(0.95rem, 3.2vw, 1.4rem);
+            white-space: nowrap;
+        }
+
         .copy-notification {
             position: fixed;
             top: 20px;
@@ -89,128 +106,103 @@
             border-radius: 50px;
             display: none;
             z-index: 1000;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-        .badge-step {
-            background: #fff1e7;
-            color: #ff5d00;
-            padding: 3px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            display: inline-block;
-        }
-        .badge-final {
-            background: #ff5d00;
-            color: white;
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 900;
-            margin-bottom: 0.75rem;
-            display: inline-block;
-            box-shadow: 0 4px 6px rgba(255, 93, 0, 0.3);
-        }
-        
-        /* 이미지 컨테이너 스타일 */
-        .img-container {
-            background-color: #f1f5f9;
-            border: 2px dashed #e2e8f0;
-            border-radius: 1rem;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100px; 
-            transition: all 0.3s ease;
-        }
-        
-        .img-container.loaded {
-            background-color: transparent;
-            border: none;
-            min-height: auto;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: auto;
-            display: none; 
-        }
-
-        .img-container.loaded img {
-            display: block;
-        }
-
-        .img-container::after {
-            content: attr(data-placeholder);
-            color: #94a3b8;
-            font-size: 0.75rem;
-            text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .img-container.loaded::after {
-            content: none;
-        }
-
-        .img-container.img-error {
-            border: 2px solid #fee2e2;
-            background-color: #fef2f2;
-            min-height: 150px;
-        }
-        .img-container.img-error::after {
-            content: "이미지를 불러올 수 없습니다\n(" attr(data-placeholder) ")";
-            color: #ef4444;
-            white-space: pre-wrap;
-        }
-        .img-container.img-error img {
-            display: none !important;
-        }
-
-        @media (min-width: 1024px) {
-            .sticky-sidebar { top: 100px; }
         }
     </style>
 </head>
 <body class="text-slate-900 leading-relaxed">
 
+    <!-- 페이지 읽기 진행바 -->
+    <div id="progress-bar"></div>
+
+    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
             <div class="flex items-center">
-                <span class="font-black text-3xl tracking-tighter bg-bithumb-orange text-white px-3 py-1 rounded">BITHUMB</span>
+                <span class="brand-text font-black tracking-tighter text-slate-900 flex items-center">
+                    <span class="bg-bithumb-orange text-white px-2 py-0.5 rounded mr-1.5 md:mr-2 text-[0.85em]">빗썸</span> 
+                    7만원 가이드 📘
+                </span>
             </div>
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-bold text-slate-500">
-                <a href="#steps" class="hover:text-bithumb-orange transition">수령 방법</a>
-                <a href="#withdrawal" class="hover:text-bithumb-orange transition">출금 가이드</a>
-                <a href="#faq" class="hover:text-bithumb-orange transition">FAQ</a>
-                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-black transition active:scale-95" data-location="header">지금 가입하기</a>
-            </nav>
-            <div class="md:hidden text-bithumb-orange font-bold text-xs uppercase tracking-widest text-right">Update 2026.01</div>
+            <div class="flex items-center space-x-3">
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-bold text-slate-500 mr-4">
+                    <a href="#section-beginner" class="hover:text-bithumb-orange transition">입문가이드</a>
+                    <a href="#steps" class="hover:text-bithumb-orange transition">수령방법</a>
+                    <a href="#section-withdrawal" class="hover:text-bithumb-orange transition">출금</a>
+                </nav>
+                <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link bg-slate-900 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold hover:bg-black transition active:scale-95" data-location="header">가입하기</a>
+            </div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto pb-32">
         
-        <section id="section-top" class="bg-bithumb-gradient pt-16 pb-24 px-6 text-white text-center relative overflow-hidden md:rounded-b-[4rem]">
+        <!-- Hero Section -->
+        <section id="section-top" class="bg-bithumb-gradient pt-12 pb-20 px-6 text-white text-center relative overflow-hidden md:rounded-b-[4rem]">
             <div class="relative z-10 max-w-4xl mx-auto">
                 <div class="flex flex-wrap justify-center gap-2 mb-6">
-                    <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold border border-white/30 tracking-tight">2026년 1월 기준 최신 조건 반영</span>
+                    <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold border border-white/30 tracking-tight">2026년 1월 업데이트 완료</span>
                     <span class="bg-orange-900/30 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold border border-white/20 tracking-tight">초간단 완벽 정리</span>
                 </div>
-                <h1 class="text-4xl md:text-7xl font-black mb-6 tracking-tight leading-tight">
+                <h1 class="text-3xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
                     빗썸 신규가입 7만원<br><span class="underline decoration-white/40 underline-offset-8">실패 없이 받는 법</span>
                 </h1>
-                <p class="text-white/80 text-lg md:text-2xl font-medium max-w-2xl mx-auto leading-snug">
+                <p class="text-white/80 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-snug">
                     친구초대 5만 + 가입 축하금 2만<br class="md:hidden">
-                    <span class="text-white font-black">변경된 최신 조건</span>을 5분 만에 정리해 드립니다. 천천히 따라하시면 5분만에 7만원 받으실 수 있습니다!
+                    <span class="text-white font-black">변경된 최신 조건</span>을 5분 만에 정리해 드립니다.
                 </p>
             </div>
             <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-[80px]"></div>
         </section>
 
-        <section id="section-factcheck" class="max-w-6xl mx-auto px-6 mt-12 mb-16">
+        <!-- STEP 0: 입문자를 위한 빗썸 기초 상식 (New) -->
+        <section id="section-beginner" class="max-w-6xl mx-auto px-6 mt-12 scroll-mt-28">
+            <div class="bg-white text-slate-800 rounded-[2.5rem] shadow-lg relative overflow-hidden border-2 border-slate-100">
+                <button id="beginnerToggleBtn" class="w-full text-left p-6 md:p-10 relative z-10 flex items-center justify-between gap-6 outline-none bg-slate-50/50">
+                    <div class="flex-1">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold mb-3 inline-block">STEP 0. 입문 필수 체크</span>
+                        <h2 class="text-lg md:text-2xl font-black leading-tight tracking-tight text-slate-900">
+                            처음 오셨나요? <span class="text-blue-600">가상화폐 & 빗썸 기초 상식</span>
+                        </h2>
+                    </div>
+                    <div id="beginnerArrow" class="bg-slate-200 p-2 rounded-full transition-transform duration-500">
+                        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </button>
+                
+                <div id="beginnerContent" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden border-t border-slate-100">
+                        <div class="p-6 md:p-10 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-blue-50 p-6 rounded-2xl">
+                                    <h4 class="font-bold text-blue-800 mb-2 flex items-center">
+                                        <span class="mr-2 text-xl">🏢</span> 빗썸은 어떤 곳인가요?
+                                    </h4>
+                                    <p class="text-blue-900/70 text-sm leading-relaxed">
+                                        비트코인 같은 가상화폐를 안전하게 사고파는 <strong>'대한민국 대표 거래소'</strong>입니다. 2014년에 설립되어 10년이 넘는 역사를 가진 정식 승인 거래소이니 안심하셔도 됩니다.
+                                    </p>
+                                </div>
+                                <div class="bg-orange-50 p-6 rounded-2xl">
+                                    <h4 class="font-bold text-orange-800 mb-2 flex items-center">
+                                        <span class="mr-2 text-xl">💰</span> 왜 7만원을 그냥 주나요?
+                                    </h4>
+                                    <p class="text-orange-900/70 text-sm leading-relaxed">
+                                        복잡한 TV 광고 대신 그 비용을 신규 가입자분들에게 <strong>직접 현금 리워드</strong>로 드리는 마케팅 방식입니다. 이 가이드를 통해 정당한 혜택 7만원을 챙겨가시면 됩니다.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-xl text-center">
+                                <p class="text-slate-600 text-sm font-bold">
+                                    💡 <span class="text-bithumb-orange">준비물:</span> 신분증 + <span class="underline">KB국민은행 계좌</span> (농협 불가)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 팩트체크 섹션 -->
+        <section id="section-factcheck" class="max-w-6xl mx-auto px-6 mt-6 mb-16 scroll-mt-28">
             <div class="bg-slate-800 text-white rounded-[2.5rem] shadow-2xl relative overflow-hidden border border-slate-700">
                 <button id="factCheckBtn" class="w-full text-left p-8 md:p-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 outline-none hover:bg-slate-700/50 transition-colors">
                     <div class="flex-1 text-center md:text-left pointer-events-none">
@@ -235,7 +227,7 @@
                                 <div>
                                     <div class="text-bithumb-orange font-black text-lg mb-2 italic">Q. 진짜 주나요?</div>
                                     <p class="text-slate-300 text-sm leading-relaxed">
-                                        <span class="text-white font-bold">100% 사실입니다!</span> 빗썸 앱 내에서 공식적으로 진행되는 친구초대 이벤트의 합계 혜택입니다. 실제 입금 내역은 하단의 <a href="#proof-section" class="underline hover:text-bithumb-orange transition-colors cursor-pointer font-bold">인증샷</a>을 통해 확인하실 수 있습니다.
+                                        <span class="text-white font-bold">100% 사실입니다!</span> 빗썸 앱 내에서 공식적으로 진행되는 친구초대 이벤트의 합계 혜택입니다. 실제 입금 내역은 하단의 <a href="#section-proof" class="underline hover:text-bithumb-orange transition-colors cursor-pointer font-bold">인증샷</a>을 통해 확인하실 수 있습니다.
                                     </p>
                                 </div>
                                 <div>
@@ -259,6 +251,7 @@
         </section>
 
         <div class="px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
+            <!-- Left Side -->
             <div class="lg:col-span-8 space-y-16">
                 
                 <section id="steps" class="scroll-mt-28">
@@ -273,6 +266,7 @@
                     </p>
                     
                     <div class="space-y-10">
+                        <!-- STEP 01 -->
                         <div id="section-step1" class="relative group">
                             <span class="badge-step font-black tracking-tighter">STEP 01</span>
                             <article class="step-card border-l-8 border-l-slate-900">
@@ -287,6 +281,7 @@
                             </article>
                         </div>
 
+                        <!-- STEP 02-1 -->
                         <div id="section-step2-1" class="relative">
                             <span class="badge-step font-black tracking-tighter">STEP 02-1</span>
                             <article class="step-card">
@@ -298,6 +293,7 @@
                             </article>
                         </div>
 
+                        <!-- STEP 02-2 -->
                         <div id="section-step2-2" class="relative">
                             <span class="badge-step font-black tracking-tighter">STEP 02-2</span>
                             <article class="step-card">
@@ -309,8 +305,9 @@
                             </article>
                         </div>
 
+                        <!-- FINAL STEP -->
                         <div id="section-final" class="relative">
-                            <span class="badge-final font-black tracking-tighter italic">FINAL STEP</span>
+                            <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-xs font-black mb-2 inline-block italic">FINAL STEP</span>
                             <article class="step-card final-step-active">
                                 <h3 class="font-black text-2xl text-slate-900 mb-3 text-center md:text-left">초대코드 등록 (필수!)</h3>
                                 <p class="text-slate-600 mb-6 font-semibold italic text-center md:text-left">가입 후 7일 이내에 코드를 등록해야 리워드가 확정됩니다. 1분 이내</p>
@@ -324,13 +321,14 @@
                                     <img src="STEP04.jpg" alt="초대코드 등록 가이드" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.classList.add('img-error')">
                                 </div>
                                 <div class="mt-6 flex items-center justify-center bg-orange-100/50 p-4 rounded-xl">
-                                    <span class="text-orange-700 font-black text-sm">📍 경로: 더보기 > 고객센터 > 쿠폰/코드 등록</span>
+                                    <span class="text-orange-700 font-black text-sm text-center">📍 경로: 더보기 > 고객센터 > 쿠폰/코드 등록</span>
                                 </div>
                             </article>
                         </div>
                     </div>
                 </section>
 
+                <!-- Proof Section -->
                 <section id="section-proof" class="scroll-mt-28">
                     <div class="bg-slate-900 rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden shadow-2xl">
                         <div class="relative z-10 text-center md:text-left">
@@ -344,36 +342,35 @@
                     </div>
                 </section>
 
-                <section id="section-withdrawal" class="scroll-mt-28 bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
-                    <h2 class="text-2xl font-black mb-8 flex items-center text-slate-800">현금 출금 및 유의사항</h2>
-                    <div class="space-y-4">
-                        <details class="group border border-slate-100 rounded-2xl overflow-hidden">
-                            <summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-base list-none bg-slate-50 group-open:bg-white transition-colors">
-                                <span>1. 출금을 위한 최소 거래 조건</span>
-                                <span class="transition-transform group-open:rotate-180 text-slate-400">▼</span>
-                            </summary>
-                            <div class="p-6 text-slate-500 border-t border-slate-50 leading-relaxed text-sm">
-                                지급받은 금액을 통장으로 보내려면 **최소 1회 이상의 가상자산 거래**가 필요합니다. 거래 완료 후 즉시 원화 출금이 가능합니다.
-                            </div>
-                        </details>
-                    </div>
-                </section>
-
+                <!-- FAQ -->
                 <section id="section-faq" class="scroll-mt-28">
-                    <h2 class="text-2xl font-black mb-8 text-slate-800">자주 묻는 질문 (FAQ)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm leading-relaxed">
-                        <article class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                            <h4 class="font-bold text-slate-800 mb-2">Q. 기존 가입자도 되나요?</h4>
-                            <p class="text-slate-500">아니요, 본 이벤트는 빗썸 생애 최초 가입 고객 전용 혜택입니다.</p>
-                        </article>
-                        <article class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                            <h4 class="font-bold text-slate-800 mb-2">Q. 고객센터 번호가 무엇인가요?</h4>
-                            <p class="text-slate-500">빗썸 고객센터는 1588-1234이며, 365일 24시간 상담이 가능합니다.</p>
-                        </article>
+                    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                        <h2 class="text-2xl font-black mb-8 flex items-center text-slate-800 text-center md:text-left">자주 묻는 질문 (FAQ)</h2>
+                        <div class="space-y-4">
+                            <details class="group border border-slate-100 rounded-2xl overflow-hidden">
+                                <summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-base list-none bg-slate-50 group-open:bg-white transition-colors">
+                                    <span>언제 입금되나요?</span>
+                                    <span class="transition-transform group-open:rotate-180 text-slate-400">▼</span>
+                                </summary>
+                                <div class="p-6 text-slate-500 border-t border-slate-50 leading-relaxed text-sm">
+                                    2만원 가입 축하금은 즉시, 5만원 친구초대 리워드는 정해진 지급일에 맞춰 입금됩니다.
+                                </div>
+                            </details>
+                            <details id="section-withdrawal" class="group border border-slate-100 rounded-2xl overflow-hidden scroll-mt-28">
+                                <summary class="flex justify-between items-center p-6 cursor-pointer font-bold text-base list-none bg-slate-50 group-open:bg-white transition-colors">
+                                    <span>현금 출금이 바로 가능한가요?</span>
+                                    <span class="transition-transform group-open:rotate-180 text-slate-400">▼</span>
+                                </summary>
+                                <div class="p-6 text-slate-500 border-t border-slate-50 leading-relaxed text-sm">
+                                    지급받은 금액을 통장으로 보내려면 **최소 1회 이상의 가상자산 거래**가 필요합니다. 거래 완료 후 즉시 KB국민은행 계좌로 출금 가능합니다.
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </section>
             </div>
 
+            <!-- Right Sidebar -->
             <aside class="lg:col-span-4 relative">
                 <div class="sticky-sidebar lg:sticky space-y-6">
                     <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
@@ -411,6 +408,7 @@
             </aside>
         </div>
 
+        <!-- SEO Footer -->
         <footer class="mt-32 border-t border-slate-200 bg-slate-50 pt-20 pb-28 md:pb-20">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 pb-12 border-b border-slate-200">
@@ -438,31 +436,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                    <div>
-                        <h5 class="text-slate-900 font-black text-sm mb-4 italic">Bithumb SEO Keywords</h5>
-                        <p class="text-slate-400 text-xs leading-loose font-medium">
-                            <span class="text-slate-600 font-bold underline decoration-slate-200">빗썸 신규가입 7만원 이벤트</span>는 국내 가상자산 시장 점유율 확대를 위한 공격적인 프로모션입니다. 
-                            <span class="text-slate-600 font-bold">빗썸 수수료 0원</span> 혜택과 더불어 <span class="text-slate-600 font-bold">비트코인 거래소</span> 입문을 고민하는 분들에게 최적의 기회입니다. 
-                            본 가이드는 <span class="text-slate-600 font-bold">가상자산 출금 방법</span>과 <span class="text-slate-600 font-bold">코인 투자 가이드</span>를 포함하여 초보자도 쉽게 혜택을 누릴 수 있도록 제작되었습니다.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-x-8 gap-y-4 items-start">
-                        <div class="space-y-2">
-                            <h5 class="text-slate-900 font-black text-sm mb-2">바로가기</h5>
-                            <a href="#steps" class="block text-slate-500 text-xs hover:text-bithumb-orange transition font-medium">· 수령 가이드 4단계</a>
-                            <a href="#withdrawal" class="block text-slate-500 text-xs hover:text-bithumb-orange transition font-medium">· 원화 출금 유의사항</a>
-                            <a href="#faq" class="block text-slate-500 text-xs hover:text-bithumb-orange transition font-medium">· 자주 묻는 질문 FAQ</a>
-                        </div>
-                        <div class="space-y-2">
-                            <h5 class="text-slate-900 font-black text-sm mb-2">공식 링크</h5>
-                            <a href="https://www.bithumb.com" target="_blank" class="block text-slate-500 text-xs hover:text-bithumb-orange transition font-medium">· 빗썸 공식 홈페이지</a>
-                            <a href="https://m.bithumb.com/customer_support/notice" target="_blank" class="block text-slate-500 text-xs hover:text-bithumb-orange transition font-medium">· 최신 공지사항 확인</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center pt-10 border-t border-slate-200">
+                <div class="text-center pt-10">
                     <p class="text-[11px] text-slate-400 leading-relaxed font-medium italic mb-4 max-w-2xl mx-auto">
                         본 페이지는 빗썸 리퍼럴 파트너 활동의 일환으로 정보를 제공하며 가입에 따른 리워드를 수령할 수 있습니다. 가상자산 투자는 원금 손실의 위험이 있으며 모든 투자의 책임은 본인에게 있습니다. 빗썸의 이벤트 조건 및 혜택은 거래소 사정에 따라 예고 없이 변경될 수 있으므로 반드시 공식 앱을 통해 최종 확인하시기 바랍니다.
                     </p>
@@ -475,10 +449,20 @@
 
     </main>
 
+    <!-- 실시간 수령 알림 토스트 -->
+    <div id="live-toast" class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-bithumb-orange rounded-full flex items-center justify-center animate-bounce shadow-lg">💰</div>
+        <div class="text-[11px] md:text-xs">
+            <p class="text-slate-400 font-medium" id="toast-user">010-34**-**17 김**님</p>
+            <p class="font-bold text-white leading-tight">방금 <span class="text-bithumb-orange">70,000원</span> 혜택 확정!</p>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom CTA -->
     <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 z-50">
         <div class="bg-white/95 backdrop-blur-2xl p-2 rounded-[2.5rem] shadow-2xl border border-white/50 flex space-x-2">
             <button onclick="copyCode('mobile-cta')" class="ga-copy-btn flex-1 bg-slate-100 text-slate-800 h-14 rounded-full font-black text-sm active:scale-95 transition">코드복사</button>
-            <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link flex-[2.5] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg shadow-orange-300 active:scale-95 transition" data-location="mobile-cta">
+            <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank" class="ga-signup-link flex-[2.5] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg active:scale-95 transition" data-location="mobile-cta">
                 7만원 즉시 받기
             </a>
         </div>
@@ -487,25 +471,70 @@
     <div id="copyToast" class="copy-notification font-black text-sm">초대코드가 복사되었습니다! 📋</div>
 
     <script>
-        // 아코디언 토글 로직
-        const factCheckBtn = document.getElementById('factCheckBtn');
-        const factCheckContent = document.getElementById('factCheckContent');
-        const factCheckArrow = document.getElementById('factCheckArrow');
-
-        factCheckBtn.addEventListener('click', () => {
-            const isOpen = factCheckContent.classList.contains('grid-rows-[1fr]');
-            if (isOpen) {
-                factCheckContent.classList.replace('grid-rows-[1fr]', 'grid-rows-[0fr]');
-                factCheckArrow.classList.remove('rotate-180');
-            } else {
-                factCheckContent.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
-                factCheckArrow.classList.add('rotate-180');
-                // 팩트체크를 열었을 때 이벤트 로깅
-                gtag('event', 'fact_check_open', { 'event_category': 'engagement' });
-            }
+        // 1. 페이지 진행바 로직
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            
+            const header = document.querySelector('header');
+            if (winScroll > 50) header.classList.add('shadow-md');
+            else header.classList.remove('shadow-md');
         });
 
-        // 초대코드 복사 함수 (GA 이벤트 통합)
+        // 2. 아코디언 토글 로직
+        function setupAccordion(btnId, contentId, arrowId) {
+            const btn = document.getElementById(btnId);
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            if(!btn || !content) return;
+
+            btn.addEventListener('click', () => {
+                const isOpen = content.classList.contains('grid-rows-[1fr]');
+                content.classList.toggle('grid-rows-[0fr]', isOpen);
+                content.classList.toggle('grid-rows-[1fr]', !isOpen);
+                arrow?.classList.toggle('rotate-180', !isOpen);
+            });
+        }
+        setupAccordion('factCheckBtn', 'factCheckContent', 'factCheckArrow');
+        setupAccordion('beginnerToggleBtn', 'beginnerContent', 'beginnerArrow');
+
+        // 3. 실시간 알림 로직 (10~20초 랜덤 간격, 5초 노출)
+        const lastNames = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임', '한', '오'];
+        const phoneMiddle = ['12', '34', '56', '78', '29', '41', '88', '50', '37', '92'];
+        const phoneEnd = ['17', '82', '05', '39', '64', '55', '21', '43', '10', '99'];
+        
+        function showLiveToast() {
+            const toast = document.getElementById('live-toast');
+            const userSpan = document.getElementById('toast-user');
+            
+            const name = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const mid = phoneMiddle[Math.floor(Math.random() * phoneMiddle.length)];
+            const end = phoneEnd[Math.floor(Math.random() * phoneEnd.length)];
+            
+            userSpan.innerText = `010-${mid}**-**${end} ${name}**님`;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000); // 5초간 노출
+        }
+
+        function scheduleNextToast() {
+            const delay = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+            setTimeout(() => {
+                showLiveToast();
+                scheduleNextToast();
+            }, delay);
+        }
+
+        // 4. 초기 구동 및 유틸리티
+        window.addEventListener('load', () => {
+            setTimeout(showLiveToast, 3000); // 로드 3초 후 첫 등장
+            scheduleNextToast();
+        });
+
         function copyCode(location) {
             const code = "GYYE7EEGC6";
             const tempInput = document.createElement("input");
@@ -515,75 +544,16 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
             
-            // GA 이벤트 전송
-            gtag('event', 'copy_invite_code', {
-                'event_category': 'engagement',
-                'event_label': '초대코드 복사',
-                'button_location': location
-            });
-
+            gtag('event', 'copy_invite_code', { 'button_location': location });
             const toast = document.getElementById("copyToast");
             toast.style.display = "block";
             setTimeout(() => { toast.style.display = "none"; }, 2000);
         }
 
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) header.classList.add('shadow-md');
-            else header.classList.remove('shadow-md');
-        });
-
-        // --- GA 심화 추적 스크립트 ---
-
-        // 1. 가입 버튼 클릭 추적 (이탈 시점 확인)
         document.querySelectorAll('.ga-signup-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const location = this.getAttribute('data-location');
-                gtag('event', 'click_signup_link', {
-                    'event_category': 'conversion',
-                    'event_label': '가입 페이지 이동',
-                    'click_location': location
-                });
+            link.addEventListener('click', function() {
+                gtag('event', 'click_signup', { 'click_location': this.dataset.location });
             });
-        });
-
-        // 2. 섹션별 도달(스크롤) 추적: Intersection Observer 활용
-        const trackingSections = [
-            { id: 'section-top', name: '히어로 섹션' },
-            { id: 'section-factcheck', name: '팩트체크' },
-            { id: 'section-step1', name: 'Step 1 설치' },
-            { id: 'section-step2-1', name: 'Step 2-1 KYC' },
-            { id: 'section-step2-2', name: 'Step 2-2 계좌연결' },
-            { id: 'section-final', name: 'Final Step 코드등록' },
-            { id: 'section-proof', name: '수령인증' },
-            { id: 'section-withdrawal', name: '출금가이드' },
-            { id: 'section-faq', name: '자주묻는질문' }
-        ];
-
-        const observerOptions = {
-            root: null,
-            threshold: 0.3 // 섹션이 30% 이상 노출될 때 체크
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    gtag('event', 'section_view', {
-                        'section_id': entry.target.id,
-                        'section_name': entry.target.getAttribute('data-section-name')
-                    });
-                    // 중복 전송 방지를 위해 한 번 보고 나면 관찰 중단
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        trackingSections.forEach(section => {
-            const el = document.getElementById(section.id);
-            if (el) {
-                el.setAttribute('data-section-name', section.name);
-                observer.observe(el);
-            }
         });
     </script>
 </body>
