@@ -162,7 +162,8 @@
     <div id="progress-bar"></div>
 
     <div class="trust-status-bar">
-        📢 <span id="auto-date">2026년 1월 24일</span> 기준, 총 <span class="text-bithumb-orange">358명</span>이 이 가이드를 통해 혜택 수령을 완료하셨습니다.
+        📢 <span id="auto-date">2026년 1월 24일</span> 기준, 총 <span class="text-bithumb-orange">358명</span>이 이 가이드를 통해 혜택
+        수령을 완료하셨습니다.
     </div>
 
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
@@ -334,7 +335,8 @@
                                     <div class="text-bithumb-orange font-black text-sm mb-1 italic">Q. 다른 블로그... 차이점은?
                                     </div>
                                     <p class="text-slate-300 text-[11px] leading-relaxed">
-                                        이 사이트는 최신 정보를 매일 체크하고 있습니다. 회원가입 후 7일 이내에 7만원을 수령받아야 하는 <span class="text-white font-bold">시간제
+                                        이 사이트는 최신 정보를 매일 체크하고 있습니다. 회원가입 후 7일 이내에 7만원을 수령받아야 하는 <span
+                                            class="text-white font-bold">시간제
                                             조건</span>이 있으므로, 이 가이드북을 따라하시는 것을 추천드립니다.
                                     </p>
                                 </div>
@@ -569,33 +571,39 @@
 
     <script>
         // 1. 날짜 자동 업데이트 (오늘 날짜 기준)
-        (function updateTodayDate() {
+        (function updateDate() {
             const today = new Date();
-            const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
-            const dateElement = document.getElementById('auto-date');
-            if (dateElement) dateElement.innerText = formattedDate;
+            const formatted = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+            // 상단 바의 날짜 텍스트를 찾아서 바꿔줍니다.
+            const statusBar = document.querySelector('.trust-status-bar');
+            if (statusBar) {
+                statusBar.innerHTML = `📢 ${formatted} 기준, 총 <span class="text-bithumb-orange">358명</span>이 이 가이드를 통해 혜택 수령을 완료하셨습니다.`;
+            }
         })();
 
-        // 2. 통합 추적 스크립트 (키워드, 한글 섹션, 체류시간)
+        // 2. 통합 추적 로직 (키워드 추출 + 섹션 체류시간 + 버튼 클릭)
         (function initTracking() {
+            // [수정 포인트] URL에서 utm_term(키워드)을 읽어오는 핵심 로직입니다.
             const urlParams = new URLSearchParams(window.location.search);
             const utmTerm = urlParams.get('utm_term') || 'unknown';
-            let currentSectionId = 'none';
-            let maxSectionReached = 'section-0-상단헤더';
-            let sectionEntryTime = Date.now();
 
-            function sendGA4Event(name, params) {
+            let currentSectionId = 'none';
+            let maxSectionReached = 'none';
+            let entryTime = Date.now();
+
+            // 모든 이벤트에 키워드 정보를 포함해서 보내는 함수
+            function sendGA4(name, params) {
                 if (typeof gtag === 'function') {
                     gtag('event', name, {
-                        'keyword': utmTerm,
+                        'keyword': utmTerm,      // 여기서 '테스트클릭'이 전송됩니다!
                         'last_section': maxSectionReached,
                         ...params
                     });
                 }
             }
 
-            // [초대코드 복사 전역 노출]
-            window.copyCode = function(location) {
+            // [초대코드 복사 함수 업데이트]
+            window.copyCode = function (location) {
                 const code = "GYYE7EEGC6";
                 const tempInput = document.createElement("textarea");
                 tempInput.value = code;
@@ -603,57 +611,56 @@
                 tempInput.select();
                 document.execCommand("copy");
                 document.body.removeChild(tempInput);
-                
-                sendGA4Event('copy_invite_code', { 'button_location': location });
-                
+
+                // 복사 이벤트 보낼 때 키워드 포함
+                sendGA4('copy_invite_code', { 'button_location': location });
+
                 const toast = document.getElementById("copyToast");
                 toast.style.display = "block";
                 setTimeout(() => { toast.style.display = "none"; }, 2000);
             };
 
-            // [섹션 관찰 및 체류 시간]
+            // [섹션 관찰 및 체류시간 측정]
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // 이전 섹션 체류 시간 계산 및 전송
+                        // 섹션을 벗어날 때 머문 시간 계산
                         if (currentSectionId !== 'none') {
-                            const duration = Math.round((Date.now() - sectionEntryTime) / 1000);
-                            sendGA4Event('section_stay_time', {
+                            const duration = Math.round((Date.now() - entryTime) / 1000);
+                            sendGA4('section_stay_time', {
                                 'section_id': currentSectionId,
                                 'duration_sec': duration
                             });
                         }
-                        
                         currentSectionId = entry.target.id;
-                        sectionEntryTime = Date.now();
+                        entryTime = Date.now();
                         maxSectionReached = currentSectionId;
-                        sendGA4Event('section_view', { 'section_id': currentSectionId });
+
+                        // 섹션에 도달했을 때 키워드와 함께 전송
+                        sendGA4('section_view', { 'section_id': currentSectionId });
                     }
                 });
             }, { threshold: 0.3 });
 
             window.addEventListener('load', () => {
-                // 섹션 관찰 시작
-                document.querySelectorAll('section').forEach(section => observer.observe(section));
-                
+                // 모든 section 태그 추적 시작
+                document.querySelectorAll('section').forEach(s => observer.observe(s));
+
                 // 가입하기 버튼 클릭 추적
                 document.querySelectorAll('.ga-signup-link').forEach(link => {
-                    link.addEventListener('click', function () {
-                        sendGA4Event('click_signup_button', {
-                            'button_location': this.getAttribute('data-location') || 'unknown'
-                        });
+                    link.addEventListener('click', () => {
+                        sendGA4('click_signup_button', { 'button_location': link.dataset.location || 'unknown' });
                     });
                 });
             });
         })();
 
-        // 3. 기존 UI 로직 (아코디언, 프로그레스 바)
+        // 3. 기존 UI 기능 (프로그레스 바 & 아코디언)
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            const bar = document.getElementById("progress-bar");
-            if (bar) bar.style.width = scrolled + "%";
+            document.getElementById("progress-bar").style.width = scrolled + "%";
         });
 
         function setupAccordion(btnId, contentId, arrowId) {
