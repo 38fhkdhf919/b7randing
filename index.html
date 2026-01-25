@@ -425,7 +425,8 @@
                     <h3 class="text-2xl font-black mb-4 text-slate-900">이게 사기가 아니라는 것을 어떻게 믿어요?</h3>
                     <p class="text-slate-500 text-sm md:text-base mb-10 font-medium leading-relaxed">
                         빗썸은 현재 시장 점유율 1위를 탈환하기 위해 공격적인 마케팅을 펼치고 있습니다. 광고 대행사에 막대한 수수료를 주는 대신, <strong>신규 가입자에게 현금 리워드를
-                            직접 지급하는 파격적인 방식</strong>을 선택한 공식 프로모션입니다. 이미 수만 명이 안전하게 혜택을 받아갔습니다. 아래는 빗썸 공식홈페이지에서 공지하고 있는 가입이벤트 내용입니다.
+                            직접 지급하는 파격적인 방식</strong>을 선택한 공식 프로모션입니다. 이미 수만 명이 안전하게 혜택을 받아갔습니다. 아래는 빗썸 공식홈페이지에서 공지하고 있는
+                        가입이벤트 내용입니다.
                     </p>
 
                     <div class="img-box mb-10 border-slate-200 border-2 shadow-inner">
@@ -627,7 +628,8 @@
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 1
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
-                                            <i class="fas fa-hand-pointer text-blue-500 mr-2"></i> 상품선택</h4>
+                                            <i class="fas fa-hand-pointer text-blue-500 mr-2"></i> 상품선택
+                                        </h4>
                                         <p class="text-stone-600 text-xs leading-relaxed font-medium text-left">관심있는 비대면
                                             계좌개설 상품을 선택하세요. '주식거래' 등을 선택하시면 됩니다.</p>
                                     </div>
@@ -638,7 +640,8 @@
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 2
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
-                                            <i class="fas fa-id-card text-blue-500 mr-2"></i> 인증 및 촬영</h4>
+                                            <i class="fas fa-id-card text-blue-500 mr-2"></i> 인증 및 촬영
+                                        </h4>
                                         <p class="text-stone-600 text-xs leading-relaxed font-medium text-left">본인인증 및
                                             신분증 촬영을 완료하세요.</p>
                                     </div>
@@ -649,7 +652,8 @@
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 3
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
-                                            <i class="fas fa-user-edit text-blue-500 mr-2"></i> 정보입력</h4>
+                                            <i class="fas fa-user-edit text-blue-500 mr-2"></i> 정보입력
+                                        </h4>
                                         <p class="text-stone-600 text-xs leading-relaxed font-medium text-left">개인정보 및
                                             필수 정보를 입력하세요.</p>
                                     </div>
@@ -778,7 +782,8 @@
                                 class="bg-slate-50 p-6 rounded-2xl border border-slate-100 font-medium text-slate-500 text-[12px] leading-loose text-left">
                                 💰 <strong>리워드 수령 팁</strong>: 받으신 총 금액 7만원은 영업일 기준 한 달 뒤 확정 정산됩니다. 정산된 리워드는 빗썸 앱의
                                 <strong>'자산현황' > '입출금' > '원화(KRW)' > '출금'</strong> 메뉴를 통해 등록하신 국민은행 계좌로 1초 만에 이체할 수
-                                있습니다. 1회 거래 미완료 시 출금이 제한될 수 있으니 꼭 위 단계를 완료해 주세요.</div>
+                                있습니다. 1회 거래 미완료 시 출금이 제한될 수 있으니 꼭 위 단계를 완료해 주세요.
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -812,9 +817,11 @@
                             <li class="flex justify-between border-b border-slate-100/50 pb-1"><span>서비스명</span><span>빗썸
                                     신규가입 7만원 가이드북</span></li>
                             <li class="flex justify-between border-b border-slate-100/50 pb-1">
-                                <span>대표자</span><span>박성호</span></li>
+                                <span>대표자</span><span>박성호</span>
+                            </li>
                             <li class="flex justify-between border-b border-slate-100/50 pb-1">
-                                <span>문의</span><span>my_random@naver.com</span></li>
+                                <span>문의</span><span>my_random@naver.com</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -1037,6 +1044,27 @@
             const scrolled = (winScroll / height) * 100;
             const bar = document.getElementById("progress-bar");
             if (bar) bar.style.width = scrolled + "%";
+        });
+
+        // URL 파라미터(?mode=...) 감지 및 자동 모드 전환 로직
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+
+            if (mode) {
+                // 특정 모드(speed, learner, safety)가 파라미터로 들어오면 자동으로 해당 모드 실행
+                if (typeof window.setMode === 'function') {
+                    window.setMode(mode);
+
+                    // [GA4] 광고 유입 경로 자동 추적
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'auto_entry_mode', {
+                            'entry_type': 'url_param',
+                            'mode_name': mode
+                        });
+                    }
+                }
+            }
         });
     </script>
 </body>
