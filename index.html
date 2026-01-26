@@ -254,6 +254,24 @@
                 display: none;
             }
         }
+
+        /* [신규] 이탈 방지 팝업 스타일 */
+        #exit-intent-popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #exit-intent-popup.active {
+            display: flex;
+            animation: fadeIn 0.3s ease forwards;
+        }
     </style>
 </head>
 
@@ -261,7 +279,8 @@
     <div id="progress-bar"></div>
 
     <div class="trust-status-bar">
-        📢 <span id="auto-date">2026년 1월 24일</span> 기준 · 현재 <span class="text-bithumb-orange">358명</span>이 이 가이드로 7만원 수령
+        📢 <span id="auto-date">2026년 1월 24일</span> 기준 · 현재 <span class="text-bithumb-orange"
+            id="count-value">358명</span>이 이 가이드로 7만원 수령
         완료!
     </div>
 
@@ -279,41 +298,41 @@
                 빗썸 신규 가입하면<br>지금 <span class="bithumb-orange underline underline-offset-8 decoration-4">최대 7만원</span> 받을
                 수 있습니다
             </h1>
-            <p class="text-slate-500 font-medium mb-12 md:text-lg">
+            <p class="text-slate-500 font-medium mb-12 md:text-lg text-center">
                 당신의 현재 상황에 맞는 진행 방식을 선택하세요.
             </p>
 
             <div id="main-persona-buttons" class="grid grid-cols-1 gap-4 mb-8 text-left">
-                <button onclick="setMode('speed')"
+                <button id="btn-speed" onclick="setMode('speed')"
                     class="persona-btn bg-white p-6 rounded-[2rem] shadow-xl text-left flex items-center group">
                     <div
                         class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mr-5 group-hover:bg-bithumb-orange group-hover:text-white transition-colors duration-300 font-black text-xl text-orange-600">
                         🚀</div>
-                    <div class="flex-1">
+                    <div class="flex-1 text-left">
                         <div class="font-black text-lg text-slate-800">초대코드와 가입링크 바로 주세요</div>
                         <div class="text-xs text-slate-400 font-bold">이미 해본 적 있어서 빠르게 진행하고 싶어요</div>
                     </div>
                     <div class="text-slate-300 group-hover:text-bithumb-orange transition">→</div>
                 </button>
 
-                <button onclick="setMode('learner')"
+                <button id="btn-learner" onclick="setMode('learner')"
                     class="persona-btn bg-white p-6 rounded-[2rem] shadow-xl text-left flex items-center group border-2 border-slate-100">
                     <div
                         class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mr-5 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 font-black text-xl text-blue-600">
                         📘</div>
-                    <div class="flex-1">
+                    <div class="flex-1 text-left">
                         <div class="font-black text-lg text-slate-800">지금 해볼건데, 천천히 자세히 알려주세요</div>
                         <div class="text-xs text-slate-400 font-bold">실수 없이 단계별로 안내받고 싶어요</div>
                     </div>
                     <div class="text-slate-300 group-hover:text-blue-600 transition">→</div>
                 </button>
 
-                <button onclick="setMode('safety')"
+                <button id="btn-safety" onclick="setMode('safety')"
                     class="persona-btn bg-white p-6 rounded-[2rem] shadow-xl text-left flex items-center group">
                     <div
                         class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mr-5 group-hover:bg-slate-900 group-hover:text-white transition-colors duration-300 font-black text-xl text-slate-600">
                         🔍</div>
-                    <div class="flex-1">
+                    <div class="flex-1 text-left">
                         <div class="font-black text-lg text-slate-800">진짜 7만원 주는건지 확인부터 해볼래요</div>
                         <div class="text-xs text-slate-400 font-bold">사기인지, 조건이 있는지 먼저 확인하고 싶어요</div>
                     </div>
@@ -422,8 +441,8 @@
                 </div>
 
                 <div class="bg-white rounded-[2.5rem] p-10 border-2 border-slate-100 shadow-sm text-left">
-                    <h3 class="text-2xl font-black mb-4 text-slate-900">이게 사기가 아니라는 것을 어떻게 믿어요?</h3>
-                    <p class="text-slate-500 text-sm md:text-base mb-10 font-medium leading-relaxed">
+                    <h3 class="text-2xl font-black mb-4 text-slate-900 text-left">이게 사기가 아니라는 것을 어떻게 믿어요?</h3>
+                    <p class="text-slate-500 text-sm md:text-base mb-10 font-medium leading-relaxed text-left">
                         빗썸은 현재 시장 점유율 1위를 탈환하기 위해 공격적인 마케팅을 펼치고 있습니다. 광고 대행사에 막대한 수수료를 주는 대신, <strong>신규 가입자에게 현금 리워드를
                             직접 지급하는 파격적인 방식</strong>을 선택한 공식 프로모션입니다. 이미 수만 명이 안전하게 혜택을 받아갔습니다. 아래는 빗썸 공식홈페이지에서 공지하고 있는
                         가입이벤트 내용입니다.
@@ -441,44 +460,52 @@
                             </h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <p class="font-black text-sm mb-3 text-slate-900 italic">"7만원 받으려고 제 돈을 써야하나요?"</p>
-                                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">절대 아닙니다. 가입 혜택으로
+                                    <p class="font-black text-sm mb-3 text-slate-900 italic text-left">"7만원 받으려고 제 돈을
+                                        써야하나요?"</p>
+                                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium text-left">절대 아닙니다.
+                                        가입 혜택으로
                                         지급된 금액은 빗썸 마케팅 예산에서 직접 지급되는 '현금 리워드'이며, 추후 어떠한 추가 비용도 발생하지 않습니다.</p>
                                 </div>
                                 <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <p class="font-black text-sm mb-3 text-slate-900 italic">"개인정보가 위험하지 않나요?"</p>
-                                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">빗썸은 금융위 정식 신고
+                                    <p class="font-black text-sm mb-3 text-slate-900 italic text-left">"개인정보가 위험하지 않나요?"
+                                    </p>
+                                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium text-left">빗썸은 금융위
+                                        정식 신고
                                         사업자입니다. 주민등록번호 수집은 금융거래법에 의거한 의무 사항이며, 1금융권 수준의 강력한 보안 솔루션으로 안전하게 보호됩니다.</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="p-8 bg-orange-50 border border-orange-100 rounded-[2rem]">
-                            <h4 class="text-xl font-black text-orange-700 flex items-center mb-4 italic">
+                            <h4 class="text-xl font-black text-orange-700 flex items-center mb-4 italic text-left">
                                 <span class="mr-2 text-2xl">⏳</span> 지금 가입을 미루면 안 되는 이유
                             </h4>
-                            <p class="text-sm text-orange-900 leading-relaxed font-black mb-4">"다음에 해야지" 하는 순간 7만원 기회는
+                            <p class="text-sm text-orange-900 leading-relaxed font-black mb-4 text-left">"다음에 해야지" 하는 순간
+                                7만원 기회는
                                 사라집니다.</p>
-                            <ul class="space-y-3 text-xs text-orange-800 font-medium">
-                                <li class="flex items-start"><span class="mr-2">🚩</span> 현재 역대급 예산이 투입된 시기로, 가입자가 폭증하고
+                            <ul class="space-y-3 text-xs text-orange-800 font-medium text-left">
+                                <li class="flex items-start text-left"><span class="mr-2">🚩</span> 현재 역대급 예산이 투입된 시기로,
+                                    가입자가 폭증하고
                                     있습니다.</li>
-                                <li class="flex items-start"><span class="mr-2">🚩</span> 이벤트 예산 소진 시 별도의 공지 없이 즉시 종료될
+                                <li class="flex items-start text-left"><span class="mr-2">🚩</span> 이벤트 예산 소진 시 별도의 공지
+                                    없이 즉시 종료될
                                     예정입니다.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="p-8 bg-blue-50 border border-blue-100 rounded-[2rem] mt-10">
-                    <h4 class="text-xl font-black text-blue-700 flex items-center mb-6 italic">
+                    <h4 class="text-xl font-black text-blue-700 flex items-center mb-6 italic text-left">
                         <span class="mr-2 text-2xl">📝</span> 다른 까다로운 조건은 없나요?
                     </h4>
                     <div class="text-blue-900 font-medium leading-relaxed text-left">
-                        <p class="text-sm mb-6 font-bold">2만원은 오늘 즉시 출금이 가능하지만, 나머지 5만원은 한 달 뒤 출금 가능하다는 조건이 있습니다.</p>
+                        <p class="text-sm mb-6 font-bold text-left">2만원은 오늘 즉시 출금이 가능하지만, 나머지 5만원은 한 달 뒤 출금 가능하다는 조건이
+                            있습니다.</p>
                         <div
                             class="bg-white/60 p-8 rounded-2xl border-2 border-blue-200 shadow-sm transition hover:shadow-md">
                             <p class="text-blue-600 font-black text-5xl mb-6 tracking-tighter italic animate-pulse">다만!
                             </p>
-                            <p class="text-[14px] md:text-base leading-loose text-blue-800">
+                            <p class="text-[14px] md:text-base leading-loose text-blue-800 text-left">
                                 지급받은 5만원으로 비트코인을 미리 사 두세요. 한 달 뒤 가격이 올랐을 때는 리워드 이상의 수익을, 설령 내렸더라도 <strong
                                     class="text-blue-700 font-black underline decoration-blue-200 decoration-4">확정 현금
                                     5만원</strong>을 인출하는 '무위험 투자'를 경험해보는 가장 스마트한 기회입니다.
@@ -490,10 +517,10 @@
                     <label class="flex items-center space-x-3 mb-10 cursor-pointer select-none group">
                         <input type="checkbox" id="safety-confirm"
                             class="w-8 h-8 accent-slate-900 rounded border-slate-300 transition-all cursor-pointer group-hover:scale-110">
-                        <span class="text-slate-600 font-black text-xl">위 내용을 전부 확인했습니다</span>
+                        <span class="text-slate-600 font-black text-xl text-center">위 내용을 전부 확인했습니다</span>
                     </label>
                     <button id="safety-cta"
-                        class="w-full bg-slate-300 text-slate-500 text-center py-7 rounded-full font-black text-2xl pointer-events-none transition-all duration-300 shadow-xl">
+                        class="w-full bg-slate-300 text-slate-500 text-center py-7 rounded-full font-black text-2xl pointer-events-none transition-all duration-300 shadow-xl text-center">
                         조건 확인했어요. 가입할게요
                     </button>
                     <div id="safety-next-choice" class="hidden w-full mt-12 animate-fadeIn text-center">
@@ -556,7 +583,7 @@
                             01</span>
                         <h3 class="text-2xl font-black text-slate-900 text-left">빗썸 공식 앱 설치</h3>
                     </div>
-                    <div class="img-box mb-8 shadow-md border-slate-200 border-2">
+                    <div class="img-box mb-8 shadow-md border-slate-200 border-2 text-left">
                         <img src="STEP01.jpg" alt="앱설치 가이드"
                             onerror="handleImgError(this, 'STEP01.jpg', '빗썸 앱스토어 검색 및 설치 화면 캡처 이미지')">
                     </div>
@@ -571,11 +598,11 @@
                     <div class="flex items-center mb-8"><span
                             class="bg-slate-900 text-white px-5 py-1.5 rounded-xl text-xs font-black mr-4 italic uppercase">Step
                             02</span>
-                        <h3 class="text-2xl font-black text-slate-900 text-left text-left">회원가입 시작</h3>
+                        <h3 class="text-2xl font-black text-slate-900 text-left">회원가입 시작</h3>
                     </div>
                     <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium mb-8 text-left">앱 실행 후 첫
                         화면의 '회원가입'을 눌러 휴대폰 본인인증부터 마쳐주세요. 1분 안에 끝납니다.</p>
-                    <div class="img-box border-slate-200 border-2 shadow-sm">
+                    <div class="img-box border-slate-200 border-2 shadow-sm text-left">
                         <img src="STEP02.jpg" alt="회원가입 가이드"
                             onerror="handleImgError(this, 'STEP02.jpg', '빗썸 앱 메인 화면의 회원가입 버튼 위치 캡처')">
                     </div>
@@ -585,9 +612,9 @@
                     <div class="flex items-center mb-8"><span
                             class="bg-slate-900 text-white px-5 py-1.5 rounded-xl text-xs font-black mr-4 italic uppercase">Step
                             03</span>
-                        <h3 class="text-2xl font-black text-slate-900 text-left text-left">본인인증(KYC) 완료</h3>
+                        <h3 class="text-2xl font-black text-slate-900 text-left">본인인증(KYC) 완료</h3>
                     </div>
-                    <div class="img-box mb-8 border-slate-200 border-2 shadow-sm">
+                    <div class="img-box mb-8 border-slate-200 border-2 shadow-sm text-left">
                         <img src="STEP03.jpg" alt="인증 가이드"
                             onerror="handleImgError(this, 'STEP03.jpg', '신분증 촬영 및 KYC 본인인증 진행 화면 캡처')">
                     </div>
@@ -602,7 +629,8 @@
                         <h3 class="text-2xl font-black text-slate-900 text-left">KB국민은행 계좌연결</h3>
                     </div>
                     <div class="p-8 md:p-12 bg-slate-50 rounded-[3rem] mb-12 border-2 border-slate-200 text-center">
-                        <p class="font-black text-slate-800 text-xl md:text-2xl mb-4 leading-tight italic">KB국민은행 계좌가
+                        <p class="font-black text-slate-800 text-xl md:text-2xl mb-4 leading-tight italic text-center">
+                            KB국민은행 계좌가
                             있으신가요?</p>
                         <p class="text-[11px] md:text-xs text-slate-400 font-bold mb-8 italic text-center">※ 아래 버튼 중 하나를
                             클릭해 주세요</p>
@@ -624,7 +652,7 @@
                             <div id="kb-slider-track" class="kb-slider-track">
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center">
+                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center text-left">
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 1
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
@@ -636,7 +664,7 @@
                                 </div>
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center">
+                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center text-left">
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 2
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
@@ -648,7 +676,7 @@
                                 </div>
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center">
+                                        class="bg-white p-8 rounded-3xl border-2 border-stone-200 shadow-sm h-full flex flex-col justify-center text-left">
                                         <div class="text-stone-400 font-black text-xs mb-2 italic text-left">STEP 3
                                         </div>
                                         <h4 class="text-lg font-black text-stone-800 mb-4 flex items-center text-left">
@@ -660,7 +688,7 @@
                                 </div>
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200 shadow-sm h-full flex flex-col justify-center">
+                                        class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200 shadow-sm h-full flex flex-col justify-center text-left">
                                         <div class="text-blue-400 font-black text-xs mb-2 italic text-left">STEP 4</div>
                                         <h4 class="text-lg font-black text-blue-800 mb-4 flex items-center text-left"><i
                                                 class="fas fa-file-signature text-blue-600 mr-2"></i> 약관동의</h4>
@@ -670,7 +698,7 @@
                                 </div>
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200 shadow-sm h-full flex flex-col justify-center">
+                                        class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200 shadow-sm h-full flex flex-col justify-center text-left">
                                         <div class="text-blue-400 font-black text-xs mb-2 italic text-left">STEP 5</div>
                                         <h4 class="text-lg font-black text-blue-800 mb-4 flex items-center text-left"><i
                                                 class="fas fa-shield-check text-blue-600 mr-2"></i> 최종확인</h4>
@@ -680,7 +708,7 @@
                                 </div>
                                 <div class="kb-slide">
                                     <div
-                                        class="bg-bithumb-orange p-8 rounded-3xl border-2 border-orange-400 shadow-lg h-full flex flex-col justify-center text-white">
+                                        class="bg-bithumb-orange p-8 rounded-3xl border-2 border-orange-400 shadow-lg h-full flex flex-col justify-center text-white text-left">
                                         <div class="text-white/60 font-black text-xs mb-2 italic text-left">FINISH</div>
                                         <h4 class="text-lg font-black mb-4 flex items-center text-left"><i
                                                 class="fas fa-party-horn text-white mr-2"></i> 개설 완료!</h4>
@@ -706,8 +734,8 @@
                     <div id="kb-link-content"
                         class="bg-orange-50 p-8 md:p-12 rounded-[3rem] border border-orange-100 animate-fadeIn mb-8 text-left">
                         <h4 class="text-xl font-black text-orange-900 mb-8 italic text-left">"빗썸 앱에서 바로 연결하세요"</h4>
-                        <div class="img-box mb-8 border-orange-200 border-2 shadow-sm"><img src="STEP-KB-LINK.jpg"
-                                alt="계좌연결 가이드"
+                        <div class="img-box mb-8 border-orange-200 border-2 shadow-sm text-left"><img
+                                src="STEP-KB-LINK.jpg" alt="계좌연결 가이드"
                                 onerror="handleImgError(this, 'STEP-KB-LINK.jpg', '빗썸 앱 내 [입출금] > [원화] > 계좌 연결 메뉴 위치 안내')">
                         </div>
                         <ul class="space-y-4 text-orange-800 font-bold leading-relaxed text-sm text-left">
@@ -733,21 +761,22 @@
                     <div class="bg-orange-50 p-8 rounded-[2rem] border-2 border-orange-200 mb-10 text-left">
                         <p class="text-[14px] md:text-lg text-orange-900 font-black leading-relaxed">⚠️ 절대 놓치면 안 되는 마지막
                             단계!<br>가입 후 <span class="underline underline-offset-4 decoration-4">반드시 7일 이내</span>에 아래
-                            메뉴에서 코드를 등록해야 나머지 5만원 혜택이 확정됩니다.</p>
+                            메뉴에서 코드를 등록해야 나머지 5만원 혜택이 확정됩니다.</p> <br> 앱 하단에 더보기 > 쿠폰/코드 등록 > 초대코드 등록하기에서 복사한 초대코드를 붙여넣기 해주세요.
                     </div>
-                    <div class="img-box mb-10 border-orange-200 border-2 shadow-md"><img src="STEP04.jpg" alt="코드등록 위치"
+                    <div class="img-box mb-10 border-orange-200 border-2 shadow-md text-left"><img src="STEP04.jpg"
+                            alt="코드등록 위치"
                             onerror="handleImgError(this, 'STEP04.jpg', '빗썸 앱 하단 [더보기] > 고객센터 > 쿠폰/코드 등록 메뉴 입력 방식 이미지')">
                     </div>
                     <div
                         class="bg-slate-900 rounded-[3rem] p-12 flex flex-col items-center gap-8 shadow-2xl border-b-8 border-bithumb-orange">
                         <div class="text-center">
                             <p
-                                class="text-white/40 text-[11px] font-black mb-2 uppercase tracking-widest italic font-mono">
+                                class="text-white/40 text-[11px] font-black mb-2 uppercase tracking-widest italic font-mono text-center">
                                 Copy and Paste Code</p><span
-                                class="font-mono text-5xl md:text-6xl font-black text-white tracking-[0.2em]">GYYE7EEGC6</span>
+                                class="font-mono text-5xl md:text-6xl font-black text-white tracking-[0.2em] text-center">GYYE7EEGC6</span>
                         </div>
                         <button onclick="copyCode('learner-final')"
-                            class="w-full max-w-md bg-bithumb-orange text-white py-6 rounded-3xl font-black text-2xl active:scale-95 transition shadow-lg hover:bg-orange-600 text-center">초대코드
+                            class="w-full max-w-md bg-bithumb-orange text-white py-6 rounded-3xl font-black text-2xl active:scale-95 transition shadow-lg hover:bg-orange-600">초대코드
                             복사하기</button>
                     </div>
                 </section>
@@ -766,7 +795,7 @@
                             <p
                                 class="text-slate-600 text-sm md:text-base mb-10 font-medium leading-relaxed italic text-left">
                                 지급받은 금액 7만원으로 아무 코인이나 7만원치 매수했다가 바로 파세요. 이 과정이 있어야 전액 출금이 가능해집니다.</p>
-                            <div class="img-box border-slate-200 border-2"><img src="STEP05.jpg" alt="거래 가이드"
+                            <div class="img-box border-slate-200 border-2 text-left"><img src="STEP05.jpg" alt="거래 가이드"
                                     onerror="handleImgError(this, 'STEP05.jpg', '빗썸 거래소 메뉴에서 비트코인 매수 및 매도 버튼 클릭 위치 안내 이미지')">
                             </div>
                         </div>
@@ -776,7 +805,8 @@
                             <p
                                 class="text-slate-600 text-sm md:text-base mb-10 font-medium leading-relaxed italic text-left">
                                 앱 하단에 [ 입출금 ] > 화면 상단에 [ 원화 ] 클릭 > [ 출금하기 ] 버튼 클릭하여 출금 가능합니다.</p>
-                            <div class="img-box border-slate-200 border-2 mb-8"><img src="STEP06.jpg" alt="출금 가이드"
+                            <div class="img-box border-slate-200 border-2 mb-8 text-left"><img src="STEP06.jpg"
+                                    alt="출금 가이드"
                                     onerror="handleImgError(this, 'STEP06.jpg', '자산현황 > 원화 출금하기 실행 캡처 이미지')"></div>
                             <div
                                 class="bg-slate-50 p-6 rounded-2xl border border-slate-100 font-medium text-slate-500 text-[12px] leading-loose text-left">
@@ -793,33 +823,37 @@
         <footer class="mt-24 pt-20 border-t border-slate-200 bg-slate-50/30">
             <div class="max-w-4xl mx-auto px-6 text-left">
                 <div class="mb-16">
-                    <h5 class="text-slate-300 font-black text-[10px] mb-6 italic uppercase tracking-widest">About
+                    <h5 class="text-slate-300 font-black text-[10px] mb-6 italic uppercase tracking-widest text-left">
+                        About
                         Bithumb 70K Guide-Book</h5>
-                    <div class="space-y-4 text-slate-400 text-[11px] md:text-xs leading-relaxed font-normal opacity-80">
+                    <div
+                        class="space-y-4 text-slate-400 text-[11px] md:text-xs leading-relaxed font-normal opacity-80 text-left">
                         <p>본 가이드북은 빗썸(Bithumb) 신규 가입 혜택을 보다 쉽게 이해하고 참여할 수 있도록 구성된 사용자 맞춤형 정보 공유 페이지입니다. 복잡한 가입 절차와 초대코드
                             등록, 계좌 연결 등 주요 프로세스를 직관적으로 전달하여 이용자의 편의를 돕는 것을 목적으로 합니다.</p>
                         <p>실시간으로 업데이트되는 빗썸의 프로모션 정보를 바탕으로, 누구나 누락 없이 최대 7만원의 혜택을 수령할 수 있도록 지원합니다. 본 서비스는 이용자의 원활한 이벤트
                             참여를 돕는 마케팅 지원 가이드이며, 빗썸 공식 홈페이지의 공지사항과 병행하여 확인하시는 것을 권장합니다.</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
-                    <div class="text-slate-300 text-[10px] leading-relaxed opacity-70">
-                        <h5 class="font-black mb-4 uppercase italic tracking-widest">Notice</h5>
-                        <ul class="space-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16 text-left">
+                    <div class="text-slate-300 text-[10px] leading-relaxed opacity-70 text-left">
+                        <h5 class="font-black mb-4 uppercase italic tracking-widest text-left">Notice</h5>
+                        <ul class="space-y-2 text-left">
                             <li>• 제공된 가이드는 정보 제공을 목적으로 하며, 초대코드 등록 시 리퍼럴 활동에 따른 파트너 혜택이 포함될 수 있습니다.</li>
                             <li>• 가상자산의 가치는 시장 상황에 따라 변동될 수 있으므로, 참여 시 빗썸 앱 내의 상품 설명을 충분히 숙지하시기 바랍니다.</li>
                             <li>• 모든 이벤트 혜택은 빗썸의 공식 운영 정책 및 기간에 따라 최종 확정됩니다.</li>
                         </ul>
                     </div>
-                    <div class="text-slate-300 text-[10px]">
-                        <h5 class="font-black mb-4 uppercase italic tracking-widest">Contact Information</h5>
-                        <ul class="space-y-2 opacity-70">
-                            <li class="flex justify-between border-b border-slate-100/50 pb-1"><span>서비스명</span><span>빗썸
-                                    신규가입 7만원 가이드북</span></li>
-                            <li class="flex justify-between border-b border-slate-100/50 pb-1">
+                    <div class="text-slate-300 text-[10px] text-left">
+                        <h5 class="font-black mb-4 uppercase italic tracking-widest text-left">Contact Information</h5>
+                        <ul class="space-y-2 opacity-70 text-left">
+                            <li class="flex justify-between border-b border-slate-100/50 pb-1 text-left">
+                                <span>서비스명</span><span>빗썸
+                                    신규가입 7만원 가이드북</span>
+                            </li>
+                            <li class="flex justify-between border-b border-slate-100/50 pb-1 text-left">
                                 <span>대표자</span><span>박성호</span>
                             </li>
-                            <li class="flex justify-between border-b border-slate-100/50 pb-1">
+                            <li class="flex justify-between border-b border-slate-100/50 pb-1 text-left">
                                 <span>문의</span><span>my_random@naver.com</span>
                             </li>
                         </ul>
@@ -831,18 +865,39 @@
         </footer>
     </main>
 
+    <div id="exit-intent-popup">
+        <div
+            class="bg-white rounded-[2.5rem] p-10 max-w-lg w-full shadow-2xl border-4 border-bithumb-orange text-center transform scale-95 transition-all">
+            <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-4xl" id="popup-emoji">😲</span>
+            </div>
+            <h3 class="text-2xl font-black mb-4 text-slate-900 tracking-tighter" id="popup-title">잠깐만요! 원하는 내용이 없으신가요?
+            </h3>
+            <p class="text-slate-500 font-bold mb-4 leading-relaxed text-center" id="popup-desc">다른 유저들은 이런 방식으로 7만원
+                혜택을<br>가장 빠르고 안전하게 받아가고 있어요.</p>
+            <p class="text-bithumb-orange font-black text-sm mb-10" id="popup-count-msg"></p>
+
+            <div id="popup-redirect-buttons" class="grid grid-cols-1 gap-4 mb-8 text-left">
+            </div>
+
+            <button onclick="closeExitPopup(true)"
+                class="text-slate-400 font-bold text-xs underline underline-offset-4 hover:text-slate-600 transition text-center">아니요,
+                그냥 나갈래요</button>
+        </div>
+    </div>
+
     <div id="footer-bar"
         class="fixed bottom-0 left-0 right-0 p-4 z-50 pointer-events-none transition-all duration-500 translate-y-32">
         <div
             class="max-w-md mx-auto bg-white/95 backdrop-blur-2xl p-2 rounded-full shadow-2xl border-2 border-white flex space-x-2 pointer-events-auto">
             <button onclick="copyCode('sticky-footer')"
-                class="flex-1 bg-slate-900 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition shadow-lg">초대코드
+                class="flex-1 bg-slate-900 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition shadow-lg text-center">초대코드
                 복사</button>
             <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank"
-                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-12 rounded-full font-black text-[10px] flex items-center justify-center shadow-lg active:scale-95 transition"
+                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-12 rounded-full font-black text-[10px] flex items-center justify-center shadow-lg active:scale-95 transition text-center"
                 data-location="sticky-footer">지금 공식링크로 가입하기</a>
             <button onclick="resetMode()"
-                class="flex-1 bg-slate-800 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition border border-slate-600 shadow-sm">첫
+                class="flex-1 bg-slate-800 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition border border-slate-600 shadow-sm text-center">첫
                 화면으로</button>
         </div>
     </div>
@@ -850,28 +905,172 @@
     <div id="copyToast" class="copy-notification font-black">초대코드가 복사되었습니다! 📋</div>
 
     <script>
+        // 1. 초기 설정 및 히스토리 관리
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         let currentKBSlide = 0;
         const totalKBSlides = 6;
-        let lastTrackedStep = ""; // 중복 추적 방지용
+        let lastTrackedStep = "";
+        let hasVisitedMode = sessionStorage.getItem('has_visited_mode') || null;
+        let isDirectEntry = false;
 
-        window.handleImgError = function (img, fileName, description) {
-            // [GA4 UPDATE] 이미지 에러 추적
-            if (typeof gtag === 'function') {
-                gtag('event', 'image_error', { 'file_name': fileName });
+        // 히스토리 스택 초기화 (무한 루프 방지 및 정상 이탈 구현)
+        function initHistory() {
+            if (!sessionStorage.getItem('history_initialized')) {
+                history.replaceState({ page: 'exit_trap' }, "");
+                history.pushState({ page: 'main' }, "");
+                sessionStorage.setItem('history_initialized', 'true');
             }
+        }
+        initHistory();
 
-            const container = img.parentElement;
-            img.style.display = 'none';
-            const infoDiv = document.createElement('div');
-            infoDiv.className = 'placeholder-info';
-            infoDiv.innerHTML = `
-                <div class="font-black text-slate-400 mb-3 text-sm italic">🖼️ 이미지 준비 중...</div>
-                <div class="bg-white/80 py-1.5 px-3 rounded-lg text-bithumb-orange font-mono text-[11px] mb-3 font-black inline-block shadow-sm">파일명: ${fileName}</div>
-                <div class="text-[11px] text-slate-400 font-bold leading-relaxed px-4">${description}</div>
-            `;
-            container.appendChild(infoDiv);
+        // 2. 통합 브라우저 뒤로가기 제어
+        window.onpopstate = function (event) {
+            const state = event.state;
+            const currentActiveMode = document.querySelector('.mode-section.active')?.id.replace('mode-', '');
+
+            if (!state || state.page === 'exit_trap') {
+                if (currentActiveMode || isDirectEntry) {
+                    showExitPopup('case2', currentActiveMode || hasVisitedMode);
+                } else {
+                    showExitPopup(hasVisitedMode ? 'case3' : 'case1');
+                }
+                history.pushState({ page: 'main' }, "");
+            }
+            else if (state.page === 'main') {
+                showMainUI();
+            }
         };
 
+        // 3. 지능형 이탈 방지 팝업 로직
+        window.showExitPopup = function (scenario, modeType) {
+            const popup = document.getElementById('exit-intent-popup');
+            const title = document.getElementById('popup-title');
+            const desc = document.getElementById('popup-desc');
+            const emoji = document.getElementById('popup-emoji');
+            const btnArea = document.getElementById('popup-redirect-buttons');
+            const countMsg = document.getElementById('popup-count-msg');
+            const todayCount = document.getElementById('count-value').innerText;
+
+            btnArea.innerHTML = "";
+            countMsg.innerText = `현재 ${todayCount}이 이 가이드로 7만원 수령 완료!`;
+
+            if (scenario === 'case1') {
+                title.innerText = "잠깐! 7만원 혜택을 포기하시나요?";
+                desc.innerHTML = "천천히 따라하면 <span class='text-bithumb-orange'>100% 7만원</span> 받을 수 있는<br>초보자 모드를 강력 추천합니다.";
+                emoji.innerText = "🎁";
+                appendBtn(btnArea, 'learner', true);
+                appendBtn(btnArea, 'speed');
+            }
+            else if (scenario === 'case2') {
+                emoji.innerText = "💡";
+                if (modeType === 'learner') {
+                    title.innerText = "내용이 너무 길어서 답답하신가요?";
+                    desc.innerText = "고수분들을 위한 '30초 요약 고수모드'를 추천합니다.";
+                    appendBtn(btnArea, 'speed', true);
+                    appendBtn(btnArea, 'safety');
+                } else if (modeType === 'speed') {
+                    title.innerText = "내용이 너무 요약되어 있었나요?";
+                    desc.innerText = "따라만 하면 가입부터 7만원 수령까지 가능한 완벽 가이드가 따로 있어요.";
+                    appendBtn(btnArea, 'learner', true);
+                } /* window.showExitPopup 함수 내의 해당 섹션을 아래 내용으로 교체하세요 */
+
+                else if (modeType === 'safety') {
+                    title.innerText = "아직 확신이 안 서시나요?";
+
+                    // 1. '오늘까지 벌써'로 문구 변경 및 숫자 진한 색(text-slate-900) 강조
+                    desc.innerHTML = `오늘까지 벌써 <span class="text-slate-900 font-black">${todayCount}</span>명이 7만원 혜택을 챙겨갔습니다.<br>가장 많은 분들이 선택한 초보자 가이드를 추천합니다.`;
+
+                    // 2. 중복된 인원수 안내 대신 예산 소진 관련 행동 유도 멘트로 변경
+                    countMsg.innerText = "예산 소진 시 별도의 공지 없이 이벤트가 즉시 종료될 수 있습니다.";
+                    countMsg.className = "text-red-500 font-black text-sm mb-10 animate-pulse"; // 강조를 위해 붉은색 및 깜빡임 효과 추가 (선택사항)
+
+                    appendBtn(btnArea, 'learner', true); // 초보자 모드 추천
+                    appendBtn(btnArea, 'speed');         // 고수 모드 선택지
+                }
+            }
+            else if (scenario === 'case3') {
+                title.innerText = "방금 보신 가이드보다 더 쉬운 방법!";
+                desc.innerText = "오늘만 수백 명이 선택한 이 가이드를 마지막으로 확인해보세요.";
+                emoji.innerText = "🚀";
+                const target = (hasVisitedMode === 'learner') ? 'speed' : 'learner';
+                appendBtn(btnArea, target, true);
+            }
+
+            popup.classList.add('active');
+            if (typeof gtag === 'function') gtag('event', 'exit_popup_view', { 'scenario': scenario, 'mode': modeType });
+        };
+
+        function appendBtn(container, mode, isBest = false) {
+            const originBtn = document.getElementById(`btn-${mode}`);
+            if (!originBtn) return;
+            const clone = originBtn.cloneNode(true);
+            clone.id = `popup-btn-${mode}`;
+            clone.className = "persona-btn bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left flex items-center group hover:bg-white relative mb-2";
+            if (isBest) {
+                const badge = document.createElement('span');
+                badge.className = "absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black px-2 py-1 rounded-full animate-bounce";
+                badge.innerText = "강력추천";
+                clone.appendChild(badge);
+            }
+            clone.onclick = () => {
+                closeExitPopup(false);
+                setMode(mode);
+            };
+            container.appendChild(clone);
+        }
+
+        window.closeExitPopup = function (isFinalExit) {
+            document.getElementById('exit-intent-popup').classList.remove('active');
+            if (isFinalExit) {
+                // 트랩 스택 2개를 제거하여 실제 이전 도메인으로 이탈
+                sessionStorage.removeItem('history_initialized');
+                history.go(-2);
+            }
+        };
+
+        // 4. 페이지 제어 로직
+        window.setMode = function (mode, isHistoryBack = false) {
+            hasVisitedMode = mode;
+            sessionStorage.setItem('has_visited_mode', mode);
+
+            if (!isHistoryBack) {
+                history.pushState({ page: 'mode', mode: mode }, "");
+            }
+
+            document.getElementById('stage-default').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('footer-bar').classList.remove('translate-y-32');
+            document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
+
+            const targetMode = document.getElementById(`mode-${mode}`);
+            if (targetMode) targetMode.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (mode === 'learner') {
+                handleKB(false);
+                setTimeout(() => updateStepNav('step-l-1'), 10);
+            }
+            if (typeof gtag === 'function') gtag('event', 'select_persona', { 'persona_type': mode });
+        };
+
+        // [수정] 메인 UI 노출 함수 - 히스토리 상태를 명확히 함
+        function showMainUI() {
+            document.getElementById('stage-default').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('footer-bar').classList.add('translate-y-32');
+            document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // [수정] '첫 화면으로' 버튼 클릭 시 히스토리 스택을 정리하고 메인으로 이동
+        window.resetMode = function () {
+            if (typeof gtag === 'function') gtag('event', 'reset_to_main');
+            // 모드에서 메인으로 가는 히스토리 상태를 반영
+            history.pushState({ page: 'main' }, "");
+            showMainUI();
+        };
+
+        // --- 기존 기능 유지 ---
         window.copyCode = function (loc) {
             const code = "GYYE7EEGC6";
             const tempInput = document.createElement("textarea");
@@ -880,48 +1079,26 @@
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
-            if (typeof gtag === 'function') gtag('event', 'copy_invite_code', { 'button_location': loc });
             const toast = document.getElementById("copyToast");
             toast.style.display = "block";
             setTimeout(() => { toast.style.display = "none"; }, 2000);
-        };
-
-        window.setMode = function (mode) {
-            if (typeof gtag === 'function') gtag('event', 'select_persona', { 'persona_type': mode });
-            document.getElementById('stage-default').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('footer-bar').classList.remove('translate-y-32');
-            document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
-            const targetMode = document.getElementById(`mode-${mode}`);
-            if (targetMode) targetMode.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'instant' });
-            if (mode === 'learner') {
-                handleKB(false);
-                setTimeout(() => updateStepNav('step-l-1'), 10);
-            }
-        };
-
-        window.resetMode = function () {
-            if (typeof gtag === 'function') gtag('event', 'reset_persona');
-            location.reload();
+            if (typeof gtag === 'function') gtag('event', 'copy_invite_code', { 'button_location': loc });
         };
 
         window.handleKB = function (hasAccount) {
-            if (typeof gtag === 'function') gtag('event', 'learner_kb_check', { 'has_account': hasAccount });
             const newGuide = document.getElementById('kb-new-content');
             const linkGuide = document.getElementById('kb-link-content');
             const yesBtn = document.getElementById('kb-yes-btn');
             const noBtn = document.getElementById('kb-no-btn');
-
             if (hasAccount) {
                 newGuide.style.display = 'none';
                 linkGuide.style.display = 'block';
-                yesBtn.className = "flex-1 max-w-[180px] bg-slate-900 text-white border-2 border-slate-900 py-6 rounded-3xl font-black transition-all shadow-xl text-lg ring-4 ring-slate-200 active:scale-95";
+                yesBtn.className = "flex-1 max-w-[180px] bg-slate-900 text-white border-2 border-slate-900 py-6 rounded-3xl font-black transition-all shadow-xl text-lg ring-4 ring-slate-200";
                 noBtn.className = "flex-1 max-w-[180px] bg-white border-2 border-slate-200 py-6 rounded-3xl font-black transition-all text-lg hover:border-slate-400 shadow-sm";
             } else {
                 newGuide.style.display = 'block';
                 linkGuide.style.display = 'block';
-                noBtn.className = "flex-1 max-w-[180px] bg-slate-900 text-white border-2 border-slate-900 py-6 rounded-3xl font-black transition-all shadow-xl text-lg ring-4 ring-slate-100 active:scale-95";
+                noBtn.className = "flex-1 max-w-[180px] bg-slate-900 text-white border-2 border-slate-900 py-6 rounded-3xl font-black transition-all shadow-xl text-lg ring-4 ring-slate-100 shadow-xl";
                 yesBtn.className = "flex-1 max-w-[180px] bg-white border-2 border-slate-200 py-6 rounded-3xl font-black transition-all text-lg hover:border-slate-400 shadow-sm";
                 currentKBSlide = 0;
                 moveKBSlide(0);
@@ -938,14 +1115,18 @@
             }
         };
 
+        window.handleImgError = function (img, fileName, description) {
+            const container = img.parentElement;
+            img.style.display = 'none';
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'placeholder-info';
+            infoDiv.innerHTML = `<div class="font-black text-slate-400 mb-3 text-sm italic">🖼️ 이미지 준비 중...</div><div class="bg-white/80 py-1.5 px-3 rounded-lg text-bithumb-orange font-mono text-[11px] mb-3 font-black inline-block shadow-sm">파일명: ${fileName}</div><div class="text-[11px] text-slate-400 font-bold leading-relaxed px-4">${description}</div>`;
+            container.appendChild(infoDiv);
+        };
+
         window.scrollToStep = function (stepId) {
             const el = document.getElementById(stepId);
-            if (el) {
-                const offset = 100;
-                const elementPosition = el.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            }
+            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 100, behavior: 'smooth' });
         };
 
         function updateStepNav(stepId) {
@@ -953,13 +1134,8 @@
                 nav.classList.remove('active');
                 if (nav.dataset.step === stepId) {
                     nav.classList.add('active');
-                    nav.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
-                    // [GA4 UPDATE] 초보형 단계 조회 추적 (중복 방지)
                     if (lastTrackedStep !== stepId) {
-                        if (typeof gtag === 'function') {
-                            gtag('event', 'learner_step_view', { 'step_id': stepId });
-                        }
+                        if (typeof gtag === 'function') gtag('event', 'learner_step_view', { 'step_id': stepId });
                         lastTrackedStep = stepId;
                     }
                 }
@@ -968,8 +1144,7 @@
 
         const learnerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const learnerMode = document.getElementById('mode-learner');
-                if (learnerMode && learnerMode.classList.contains('active') && entry.isIntersecting) {
+                if (document.getElementById('mode-learner').classList.contains('active') && entry.isIntersecting) {
                     updateStepNav(entry.target.id);
                 }
             });
@@ -977,94 +1152,48 @@
 
         window.addEventListener('load', () => {
             const today = new Date();
-            const autoDateEl = document.getElementById('auto-date');
-            if (autoDateEl) autoDateEl.innerText = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+            document.getElementById('auto-date').innerText = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+            document.querySelectorAll('.mode-section section').forEach(s => { if (s.id.startsWith('step-l-')) learnerObserver.observe(s); });
 
-            document.querySelectorAll('.mode-section section').forEach(s => {
-                if (s.id.startsWith('step-l-')) learnerObserver.observe(s);
-            });
-
-            // [GA4 UPDATE] 모든 가입 링크 클릭 이벤트 통합 추적
-            document.querySelectorAll('.ga-signup-link').forEach(link => {
-                link.addEventListener('click', function () {
-                    const location = this.getAttribute('data-location') || 'unknown';
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'signup_attempt', { 'button_location': location });
-                    }
-                });
-            });
+            const urlParams = new URLSearchParams(window.location.search);
+            const startMode = urlParams.get('mode');
+            if (startMode) {
+                isDirectEntry = true;
+                setMode(startMode);
+            }
 
             const safetyCta = document.getElementById('safety-cta');
             if (safetyCta) {
-                safetyCta.addEventListener('click', function (e) {
-                    // [GA4 UPDATE] 의심형 CTA 클릭 추적
-                    if (typeof gtag === 'function') gtag('event', 'safety_cta_click');
-
-                    e.preventDefault();
+                safetyCta.addEventListener('click', function () {
                     this.style.display = 'none';
                     document.getElementById('safety-next-choice').classList.remove('hidden');
-                    const mainBtns = document.querySelectorAll('#main-persona-buttons button');
                     const redirectArea = document.getElementById('safety-redirect-buttons');
                     redirectArea.innerHTML = "";
-                    mainBtns.forEach(btn => {
-                        const clickAttr = btn.getAttribute('onclick') || "";
-                        if (clickAttr.includes("'speed'") || clickAttr.includes("'learner'")) {
-                            const clone = btn.cloneNode(true);
-                            clone.className = "persona-btn bg-white p-7 rounded-[2rem] shadow-xl text-left flex items-center group border-2 border-slate-100 mb-2";
-                            redirectArea.appendChild(clone);
-                        }
+                    ['speed', 'learner'].forEach(m => {
+                        const clone = document.getElementById(`btn-${m}`).cloneNode(true);
+                        clone.onclick = () => setMode(m);
+                        redirectArea.appendChild(clone);
                     });
                     document.getElementById('safety-next-choice').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             }
 
-            const safetyCheck = document.getElementById('safety-confirm');
-            if (safetyCheck) {
-                safetyCheck.addEventListener('change', (e) => {
-                    // [GA4 UPDATE] 의심형 체크박스 동의 추적
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'safety_agreement_check', { 'is_checked': e.target.checked });
-                    }
-
-                    const cta = document.getElementById('safety-cta');
-                    if (e.target.checked) {
-                        cta.classList.remove('bg-slate-300', 'text-slate-500', 'pointer-events-none');
-                        cta.classList.add('bg-bithumb-orange', 'text-white');
-                    } else {
-                        cta.classList.add('bg-slate-300', 'text-slate-500', 'pointer-events-none');
-                        cta.classList.remove('bg-bithumb-orange', 'text-white');
-                    }
-                });
-            }
+            document.getElementById('safety-confirm')?.addEventListener('change', (e) => {
+                const cta = document.getElementById('safety-cta');
+                if (e.target.checked) {
+                    cta.classList.remove('bg-slate-300', 'text-slate-500', 'pointer-events-none');
+                    cta.classList.add('bg-bithumb-orange', 'text-white');
+                } else {
+                    cta.classList.add('bg-slate-300', 'text-slate-500', 'pointer-events-none');
+                    cta.classList.remove('bg-bithumb-orange', 'text-white');
+                }
+            });
         });
 
         window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             const bar = document.getElementById("progress-bar");
             if (bar) bar.style.width = scrolled + "%";
-        });
-
-        // URL 파라미터(?mode=...) 감지 및 자동 모드 전환 로직
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const mode = urlParams.get('mode');
-
-            if (mode) {
-                // 특정 모드(speed, learner, safety)가 파라미터로 들어오면 자동으로 해당 모드 실행
-                if (typeof window.setMode === 'function') {
-                    window.setMode(mode);
-
-                    // [GA4] 광고 유입 경로 자동 추적
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'auto_entry_mode', {
-                            'entry_type': 'url_param',
-                            'mode_name': mode
-                        });
-                    }
-                }
-            }
         });
     </script>
 </body>
