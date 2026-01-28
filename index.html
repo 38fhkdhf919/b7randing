@@ -289,13 +289,11 @@
             position: relative;
             padding: 50px 30px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
-            /* 우측 스크롤바 제거 */
             scrollbar-width: none; 
             -ms-overflow-style: none;
         }
         .modal-inner::-webkit-scrollbar { display: none; }
 
-        /* 입체적 3D 닫기 버튼 (우측 상단 고정) */
         .modal-close-btn {
             position: sticky;
             top: 0px;
@@ -305,7 +303,7 @@
             height: 48px;
             background: #ffffff;
             border: 2px solid #e2e8f0;
-            border-bottom: 5px solid #cbd5e1; /* 하단 두께감 */
+            border-bottom: 5px solid #cbd5e1;
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -314,7 +312,7 @@
             color: #64748b;
             font-size: 1.2rem;
             transition: all 0.1s;
-            margin-bottom: -48px; /* 콘텐츠 영역 확보용 음수 마진 */
+            margin-bottom: -48px;
             margin-right: -10px;
         }
         .modal-close-btn:active {
@@ -323,17 +321,17 @@
         }
         .modal-close-btn:hover { background: #f8fafc; color: #ff5d00; }
 
-        /* [신규] 하단 버튼 광채 애니메이션 */
+        /* [신규] 하단 버튼 광채 효과 및 강조 스타일 */
         @keyframes pulse-orange {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 93, 0, 0.4); }
-            50% { box-shadow: 0 0 20px 8px rgba(255, 93, 0, 0.2); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 93, 0, 0.5); }
+            50% { box-shadow: 0 0 25px 10px rgba(255, 93, 0, 0.25); }
         }
         @keyframes pulse-black {
             0%, 100% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.4); }
-            50% { box-shadow: 0 0 20px 8px rgba(15, 23, 42, 0.2); }
+            50% { box-shadow: 0 0 25px 10px rgba(15, 23, 42, 0.2); }
         }
-        .pulse-orange { animation: pulse-orange 2.5s infinite; }
-        .pulse-black { animation: pulse-black 2.5s infinite; }
+        .pulse-orange { animation: pulse-orange 2s infinite; }
+        .pulse-black { animation: pulse-black 2s infinite; }
     </style>
 </head>
 
@@ -342,7 +340,7 @@
 
     <div class="trust-status-bar">
         📢 <span id="auto-date">2026년 1월 24일</span> 기준 · 현재 <span class="text-bithumb-orange"
-            id="main-count-val">364</span>명이 이 가이드로 7만원 수령 완료!
+            id="main-count-val">358</span>명이 이 가이드로 7만원 수령 완료!
     </div>
 
     <section id="stage-default" style="display: none;"
@@ -1147,12 +1145,11 @@
     <div id="footer-bar"
         class="fixed bottom-0 left-0 right-0 p-4 z-50 pointer-events-none transition-all duration-500 translate-y-32">
         <div
-            class="max-w-md mx-auto bg-white/95 backdrop-blur-2xl p-2 rounded-full shadow-2xl border-2 border-white flex space-x-3 pointer-events-auto h-20 items-center px-4">
+            class="max-w-md mx-auto bg-white/95 backdrop-blur-2xl p-3 rounded-full shadow-2xl border-2 border-white flex space-x-3 pointer-events-auto h-24 items-center px-5">
             <button onclick="copyCode('sticky-footer')"
-                class="flex-1 bg-slate-900 text-white h-14 rounded-full font-black text-sm active:scale-95 transition shadow-lg pulse-black">코드
-                복사</button>
+                class="flex-1 bg-slate-900 text-white h-16 rounded-full font-black text-[13px] active:scale-95 transition shadow-lg pulse-black">초대코드 복사</button>
             <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank"
-                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg active:scale-95 transition pulse-orange"
+                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-16 rounded-full font-black text-[13px] flex items-center justify-center shadow-lg active:scale-95 transition pulse-orange"
                 data-location="sticky-footer">지금 공식링크로 가입하기</a>
         </div>
     </div>
@@ -1168,7 +1165,7 @@
         let currentKBSlide = 0;
         const totalKBSlides = 6;
         let lastTrackedStep = "";
-        let sectionEntryTimes = {}; // [신규] 체류 시간 측정을 위한 진입 시점 기록용
+        let sectionEntryTimes = {}; // 체류 시간 계산용 기록
         let isPopupShown = false;
         let hasActionTaken = false;
 
@@ -1339,31 +1336,35 @@
             });
         }
 
-        // [신규] 섹션별 체류 시간을 측정하는 정밀 Observer 로직
+        // [GA4 수정] 정밀 섹션 추적 로직 (진입 즉시 뷰 기록 + 벗어날 때 시간 기록)
         const learnerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const learnerMode = document.getElementById('mode-learner');
                 if (learnerMode && learnerMode.classList.contains('active')) {
                     if (entry.isIntersecting) {
-                        // 섹션에 진입했을 때 시간 기록
+                        // 1. 진입 시 즉시 'section_view' 발생 (실시간 확인용)
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'section_view', { 'section_id': entry.target.id });
+                        }
+                        // 2. 시간 측정 시작
                         sectionEntryTimes[entry.target.id] = Date.now();
                         updateStepNav(entry.target.id);
                     } else {
-                        // 섹션에서 나갔을 때 체류 시간 계산 및 전송
+                        // 3. 벗어날 때 'section_stay_time' 발생 (탐색 분석용)
                         if (sectionEntryTimes[entry.target.id]) {
                             const stayTime = Math.round((Date.now() - sectionEntryTimes[entry.target.id]) / 1000);
                             if (stayTime > 0 && typeof gtag === 'function') {
-                                gtag('event', 'section_view', {
+                                gtag('event', 'section_stay_time', {
                                     'section_id': entry.target.id,
-                                    'stay_time_seconds': stayTime // 상세 탐색용 체류 시간 데이터
+                                    'stay_time_seconds': stayTime
                                 });
                             }
-                            delete sectionEntryTimes[entry.target.id]; // 나간 후 기록 삭제
+                            delete sectionEntryTimes[entry.target.id];
                         }
                     }
                 }
             });
-        }, { threshold: 0.3, rootMargin: "-15% 0px -70% 0px" });
+        }, { threshold: 0.1 }); // 감지 민감도 향상
 
         window.addEventListener('load', () => {
             initApp();
