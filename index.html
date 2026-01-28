@@ -261,7 +261,7 @@
             }
         }
 
-        /* [수정] 팝업창 및 3D 고정 닫기 버튼 스타일 */
+        /* 팝업창 및 3D 고정 닫기 버튼 스타일 */
         #exit-intent-popup, .modal-popup {
             display: none;
             position: fixed;
@@ -322,6 +322,18 @@
             border-bottom-width: 2px;
         }
         .modal-close-btn:hover { background: #f8fafc; color: #ff5d00; }
+
+        /* [신규] 하단 버튼 광채 애니메이션 */
+        @keyframes pulse-orange {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 93, 0, 0.4); }
+            50% { box-shadow: 0 0 20px 8px rgba(255, 93, 0, 0.2); }
+        }
+        @keyframes pulse-black {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.4); }
+            50% { box-shadow: 0 0 20px 8px rgba(15, 23, 42, 0.2); }
+        }
+        .pulse-orange { animation: pulse-orange 2.5s infinite; }
+        .pulse-black { animation: pulse-black 2.5s infinite; }
     </style>
 </head>
 
@@ -330,7 +342,7 @@
 
     <div class="trust-status-bar">
         📢 <span id="auto-date">2026년 1월 24일</span> 기준 · 현재 <span class="text-bithumb-orange"
-            id="main-count-val">358</span>명이 이 가이드로 7만원 수령 완료!
+            id="main-count-val">364</span>명이 이 가이드로 7만원 수령 완료!
     </div>
 
     <section id="stage-default" style="display: none;"
@@ -1135,16 +1147,13 @@
     <div id="footer-bar"
         class="fixed bottom-0 left-0 right-0 p-4 z-50 pointer-events-none transition-all duration-500 translate-y-32">
         <div
-            class="max-w-md mx-auto bg-white/95 backdrop-blur-2xl p-2 rounded-full shadow-2xl border-2 border-white flex space-x-2 pointer-events-auto">
+            class="max-w-md mx-auto bg-white/95 backdrop-blur-2xl p-2 rounded-full shadow-2xl border-2 border-white flex space-x-3 pointer-events-auto h-20 items-center px-4">
             <button onclick="copyCode('sticky-footer')"
-                class="flex-1 bg-slate-900 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition shadow-lg">초대코드
+                class="flex-1 bg-slate-900 text-white h-14 rounded-full font-black text-sm active:scale-95 transition shadow-lg pulse-black">코드
                 복사</button>
             <a href="https://www.bithumb.com/react/referral/guide?referral=GYYE7EEGC6" target="_blank"
-                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-12 rounded-full font-black text-[10px] flex items-center justify-center shadow-lg active:scale-95 transition"
+                class="ga-signup-link flex-[2.2] bg-bithumb-orange text-white h-14 rounded-full font-black text-sm flex items-center justify-center shadow-lg active:scale-95 transition pulse-orange"
                 data-location="sticky-footer">지금 공식링크로 가입하기</a>
-            <button onclick="resetMode()"
-                class="flex-1 bg-slate-800 text-white h-12 rounded-full font-black text-[10px] active:scale-95 transition border border-slate-600 shadow-sm">첫
-                화면으로</button>
         </div>
     </div>
 
@@ -1159,6 +1168,7 @@
         let currentKBSlide = 0;
         const totalKBSlides = 6;
         let lastTrackedStep = "";
+        let sectionEntryTimes = {}; // [신규] 체류 시간 측정을 위한 진입 시점 기록용
         let isPopupShown = false;
         let hasActionTaken = false;
 
@@ -1186,7 +1196,7 @@
             if (typeof gtag === 'function') gtag('event', 'copy_invite_code', { 'button_location': loc });
         };
 
-        window.setMode = function (mode, isHistoryBack = false) {
+        window.setMode = function (mode, isHistoryBack = false, isAuto = false) {
             if (!isHistoryBack) {
                 history.pushState({ mode: mode }, mode);
             }
@@ -1205,10 +1215,12 @@
                 handleKB(false);
                 setTimeout(() => updateStepNav('step-l-1'), 10);
             }
-            if (typeof gtag === 'function') gtag('event', 'select_persona', { 'persona_type': mode });
+            
+            if (!isAuto && typeof gtag === 'function') {
+                gtag('event', 'select_persona', { 'persona_type': mode });
+            }
         };
 
-        // [수정] 팝업창 오픈 및 배경 스크롤 제어
         window.openCustomModal = function(mode) {
             const modal = document.getElementById('custom-modal');
             const body = document.getElementById('modal-body-content');
@@ -1216,14 +1228,16 @@
             
             body.innerHTML = source.innerHTML;
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // 배경 스크롤 고정
+            document.body.style.overflow = 'hidden';
             
-            if (typeof gtag === 'function') gtag('event', 'open_modal', { 'mode': mode });
+            if (typeof gtag === 'function') {
+                gtag('event', 'open_modal', { 'popup_content': mode });
+            }
         };
 
         window.closeCustomModal = function() {
             document.getElementById('custom-modal').classList.remove('active');
-            document.body.style.overflow = 'auto'; // 스크롤 복구
+            document.body.style.overflow = 'auto';
         };
 
         function initApp() {
@@ -1232,8 +1246,7 @@
                 history.pushState({ page: 'main' }, "");
                 sessionStorage.setItem('history_trap_set', 'true');
             }
-            // 무조건 초보모드(learner)로 시작
-            setMode('learner', false);
+            setMode('learner', false, true);
         }
 
         window.onpopstate = function (event) {
@@ -1326,14 +1339,31 @@
             });
         }
 
+        // [신규] 섹션별 체류 시간을 측정하는 정밀 Observer 로직
         const learnerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const learnerMode = document.getElementById('mode-learner');
-                if (learnerMode && learnerMode.classList.contains('active') && entry.isIntersecting) {
-                    updateStepNav(entry.target.id);
+                if (learnerMode && learnerMode.classList.contains('active')) {
+                    if (entry.isIntersecting) {
+                        // 섹션에 진입했을 때 시간 기록
+                        sectionEntryTimes[entry.target.id] = Date.now();
+                        updateStepNav(entry.target.id);
+                    } else {
+                        // 섹션에서 나갔을 때 체류 시간 계산 및 전송
+                        if (sectionEntryTimes[entry.target.id]) {
+                            const stayTime = Math.round((Date.now() - sectionEntryTimes[entry.target.id]) / 1000);
+                            if (stayTime > 0 && typeof gtag === 'function') {
+                                gtag('event', 'section_view', {
+                                    'section_id': entry.target.id,
+                                    'stay_time_seconds': stayTime // 상세 탐색용 체류 시간 데이터
+                                });
+                            }
+                            delete sectionEntryTimes[entry.target.id]; // 나간 후 기록 삭제
+                        }
+                    }
                 }
             });
-        }, { threshold: 0.1, rootMargin: "-15% 0px -70% 0px" });
+        }, { threshold: 0.3, rootMargin: "-15% 0px -70% 0px" });
 
         window.addEventListener('load', () => {
             initApp();
@@ -1346,8 +1376,8 @@
             const autoDateEl = document.getElementById('auto-date');
             if (autoDateEl) autoDateEl.innerText = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
 
-            document.querySelectorAll('.mode-section section').forEach(s => {
-                if (s.id.startsWith('step-l-')) learnerObserver.observe(s);
+            document.querySelectorAll('.step-card').forEach(s => {
+                learnerObserver.observe(s);
             });
 
             document.querySelectorAll('.ga-signup-link').forEach(link => {
