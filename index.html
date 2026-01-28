@@ -1248,58 +1248,49 @@
             const popup = document.getElementById('exit-intent-popup');
             const redirectArea = document.getElementById('popup-redirect-buttons');
             const activeMode = document.querySelector('.mode-section.active')?.id.replace('mode-', '');
-            const countVal = document.getElementById('main-count-val').innerText.replace('명', '');
             const popupDesc = document.getElementById('exit-popup-desc');
             const popupTitle = document.getElementById('exit-popup-title');
 
             redirectArea.innerHTML = "";
             let modesToShow = [];
-            let recommended = "";
 
-            if (activeMode === 'speed') {
-                // 수정: 고수모드 이탈 시 문구 변경
-                popupTitle.innerText = "잠시만요! 내용이 부족하셨나요?";
-                popupDesc.innerHTML = `상세히 정리한 10분컷 초간단 가이드북이 준비되어 있어요. 오늘까지 총 <span class="text-bithumb-orange font-black">${countVal}</span>명이 혜택을 챙겨갔습니다. 지금 바로 확인하고 오늘 7만원 받아가세요`;
-                modesToShow = ['learner'];
-                recommended = 'learner';
-            } else if (activeMode === 'learner') {
-                // 수정: 초보모드 이탈 시 문구 변경
-                popupTitle.innerText = "읽어야 할 내용이 너무 많은가요?";
-                popupDesc.innerHTML = `당신같은 고수들을 위해 준비한 1분 초스피드 가이드북이 따로 준비되어 있어요!`;
-                modesToShow = ['speed'];
-                recommended = 'speed';
-            } else if (activeMode === 'safety') {
-                // 수정: 의심모드 이탈 시 기존 예산 소진 내용 유지
-                popupTitle.innerText = "아직 확신이 안 서시나요?";
-                popupDesc.innerHTML = `오늘까지 벌써 <span class="text-bithumb-orange font-black">${countVal}</span>명이 7만원 혜택을 챙겨갔습니다.<br>예산 소진 시 별도의 공지 없이 종료될 수 있으니 지금 바로 확인하세요.`;
-                modesToShow = ['learner', 'speed'];
-                recommended = 'learner';
-            } else {
-                popupDesc.innerHTML = `오늘까지 벌써 <span class="text-bithumb-orange font-black">${countVal}</span>명이 7만원 혜택을 챙겨갔습니다.<br>예산 소진 시 별도의 공지 없이 종료될 수 있으니 지금 바로 확인하세요.`;
-                modesToShow = ['speed', 'learner', 'safety'];
-                recommended = 'learner';
+            // [수정] 초보모드(learner)에서 이탈 시 문구 및 선택지 구성
+            if (activeMode === 'learner') {
+                popupTitle.innerText = "원하는 내용이 없으신가요?";
+                popupDesc.innerHTML = `당신을 위해 다른 두 가지 모드도 준비되어 있어요.`;
+                modesToShow = ['speed', 'safety']; // 고수모드와 의심모드 노출
+            }
+            // 그 외 모드에서 이탈 시 (기본 로직 유지 또는 확장 가능)
+            else {
+                popupTitle.innerText = "잠시만요! 혜택을 놓치실 건가요?";
+                popupDesc.innerHTML = "지금 나가는 것보다 나에게 맞는 모드를 확인해보는 건 어떨까요?";
+                modesToShow = ['speed', 'learner', 'safety'].filter(m => m !== activeMode);
             }
 
+            // 선택지 버튼 생성 로직
             modesToShow.forEach(m => {
                 const origin = document.querySelector(`button[onclick="setMode('${m}')"]`);
                 if (origin) {
                     const clone = origin.cloneNode(true);
-                    clone.className = "persona-btn bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left flex items-center group mb-2 hover:bg-white text-left relative";
+                    // 팝업 디자인에 맞춰 스타일 조정
+                    clone.className = "persona-btn bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left flex items-center group mb-2 hover:bg-white relative";
 
-                    if (m === recommended || (activeMode === 'speed' && m === 'learner') || (activeMode === 'learner' && m === 'speed')) {
-                        const badge = document.createElement('span');
-                        badge.className = "absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black px-2 py-1 rounded-full animate-bounce";
-                        badge.innerText = "강력추천";
-                        clone.appendChild(badge);
-                    }
-
-                    clone.addEventListener('click', () => closeExitPopup());
+                    // 클릭 시 팝업 닫고 해당 모드로 이동
+                    clone.onclick = () => {
+                        closeExitPopup();
+                        setMode(m);
+                    };
                     redirectArea.appendChild(clone);
                 }
             });
 
             popup.classList.add('active');
-            if (typeof gtag === 'function') gtag('event', 'exit_intent_popup_view');
+            if (typeof gtag === 'function') {
+                gtag('event', 'exit_intent_popup_view', {
+                    'from_mode': activeMode,
+                    'popup_type': 'mode_switch'
+                });
+            }
         };
 
         window.closeExitPopup = function (isFinalExit = false) {
