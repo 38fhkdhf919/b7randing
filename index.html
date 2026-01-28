@@ -289,7 +289,7 @@
             id="main-count-val">358</span>명이 이 가이드로 7만원 수령 완료!
     </div>
 
-    <section id="stage-default"
+    <section id="stage-default" style="display: none;"
         class="min-h-[90vh] flex flex-col items-center justify-center px-6 py-12 text-center text-center">
         <div class="max-w-2xl mx-auto fade-in">
             <div class="flex flex-wrap justify-center gap-2 mb-6">
@@ -1150,6 +1150,7 @@
         };
 
         function initApp() {
+            // 뒤로가기 방지 트랩 설정 (기존 로직 유지)
             if (!sessionStorage.getItem('history_trap_set')) {
                 history.replaceState({ page: 'exit_trap' }, "");
                 history.pushState({ page: 'main' }, "");
@@ -1157,10 +1158,15 @@
             }
 
             const urlParams = new URLSearchParams(window.location.search);
-            const mode = urlParams.get('mode');
-            if (mode) {
-                setMode(mode, false);
+            let mode = urlParams.get('mode');
+
+            // [수정] 모드 파라미터가 없으면 기본값을 'learner'로 강제 설정
+            if (!mode) {
+                mode = 'learner';
             }
+
+            // 해당 모드로 즉시 진입
+            setMode(mode, false);
         }
 
         window.onpopstate = function (event) {
