@@ -1340,9 +1340,9 @@
                 learnerObserver.observe(s);
             });
 
-            document.querySelectorAll('.ga-signup-link').forEach(link => {
-                link.addEventListener('click', () => { hasActionTaken = true; });
-            });
+            // document.querySelectorAll('.ga-signup-link').forEach(link => {
+            //     link.addEventListener('click', () => { hasActionTaken = true; });
+            // });
 
             const safetyCta = document.getElementById('safety-cta');
             if (safetyCta) {
@@ -1383,7 +1383,28 @@
             if (bar) bar.style.width = scrolled + "%";
         });
     </script>
+
+    <script>
+        (function () {
+            // 가입 CTA 클릭 추적 (이벤트 위임 + capture)
+            document.addEventListener('click', function (e) {
+                const link = e.target.closest('a.ga-signup-link');
+                if (!link) return;
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_signup_button', {
+                        page_type: 'landing',
+                        button_location: link.dataset.location || 'unknown',
+                        link_url: link.href,
+                        debug_mode: true
+                    });
+                }
+            }, true); // capture 단계에서 먼저 잡기
+        })();
+    </script>
+
 </body>
 
-</html>
 
+
+</html>
