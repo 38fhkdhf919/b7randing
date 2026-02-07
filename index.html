@@ -60,7 +60,6 @@
         .persona-btn:hover { border-color: rgba(255, 93, 0, 0.3); transform: translateY(-3px); }
         .trust-status-bar { background: #0f172a; color: white; text-align: center; padding: 6px 15px; font-size: 0.75rem; font-weight: 700; }
         
-        /* [수정] 초대코드 복사 알림 애니메이션 효과 추가 */
         .copy-notification { 
             position: fixed; 
             top: 20px; 
@@ -150,18 +149,18 @@
             <div class="bg-[#f2f0ff] rounded-[2.5rem] p-8 md:p-12 border-2 border-indigo-100 shadow-lg">
                 <h3 class="text-center text-2xl md:text-4xl font-black text-indigo-600 mb-6 italic">"생애 최초 가입하면 7만원!"</h3>
                 <p class="text-slate-600 text-sm md:text-base mb-10 font-medium leading-relaxed text-center px-4">
-                    빗썸의 파격적인 신규 회원 이벤트로, 첫 가입 시 조건을 달성하면 **최대 7만원 상당의 현금 리워드**를 제공합니다. 업계 최고 수준의 혜택으로 불릴 만큼 조건이 간단해 많은 관심을 모았습니다.
+                    빗썸의 파격적인 신규 회원 이벤트로, 첫 가입시 7만원의 현금 리워드를 제공합니다. 업계 최고 수준의 혜택으로 불릴 만큼 조건이 간단해 많은 관심을 모았습니다.
                 </p>
                 <div class="bg-[#fff4e6] rounded-[2rem] p-6 md:p-10 border-l-8 border-orange-400">
                     <h4 class="text-orange-600 font-black text-xl mb-4 text-center italic">이벤트 개요</h4>
                     <p class="text-slate-700 text-sm md:text-base leading-relaxed font-bold text-center">
-                        빗썸 신규 회원이 추천인 초대코드 또는 이벤트 쿠폰 코드를 등록하고 간단한 미션을 완료하면, **총 7만원(현금 형태)의 혜택을 즉시 지급**하는 프로모션입니다. 기존 회원도 친구를 초대하면 인당 보상을 받는 친구초대 프로그램과 연계되어 있습니다.
+                        빗썸 신규 회원이 추천인 초대코드 또는 이벤트 쿠폰 코드를 등록하면, **총 7만원의 현금을 즉시 지급**하는 프로모션입니다.
                     </p>
                 </div>
             </div>
 
             <div class="bg-slate-900 rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
-                <h3 class="text-2xl font-black mb-10 italic underline decoration-bithumb-orange underline-offset-8 uppercase tracking-tight">Actual Payment Proof</h3>
+                <h3 class="text-2xl font-black mb-10 italic underline decoration-bithumb-orange underline-offset-8 uppercase tracking-tight">가이드 이용자의 7만원 수령 인증샷</h3>
                 <div class="img-box max-w-sm mx-auto mb-6 bg-white/10">
                     <img src="PROOF.jpg" alt="인증샷" onerror="handleImgError(this, 'PROOF.jpg', '실제로 7만원이 입금된 빗썸 앱 내 입금내역 스크린샷')">
                 </div>
@@ -264,7 +263,7 @@
                     <div id="kb-new-content" class="mb-16" style="display: block;">
                         <div class="text-center mb-8 px-4">
                             <h4 class="text-2xl font-black text-stone-800 mb-2">비대면 계좌개설 안내</h4>
-                            <p class="text-stone-500 text-xs md:text-sm font-medium italic">회원가입이후 앱 하단 [입출금] 메뉴에서 계좌 연결 시 '계좌가 없어요'를 선택하면 3분 만에 국민은행 계좌를 개설할 수 있습니다.</p>
+                            <p class="text-stone-500 text-xs md:text-sm font-medium italic">회원가입이후 앱 하단 [입출금] 메뉴에서 계좌 연결 시 '계좌가 없어요'를 선택하면 3분 만에 국민은행 계좌를 개설할 수 있습니다.<br>계좌개설 단계 진입시 아래 단계를 순서대로 따라하시면 2분 이내에 계좌를 개설할 수 있습니다.</p>
                         </div>
                         <div class="kb-slider-container">
                             <div id="kb-slider-track" class="kb-slider-track">
@@ -320,6 +319,11 @@
                     </div>
 
                     <div id="kb-link-content" class="bg-orange-50 p-8 md:p-12 rounded-[3rem] border border-orange-100 animate-fadeIn text-left">
+                        <h4 class="text-xl font-black text-orange-900 mb-4 italic text-center">
+                            "빗썸 앱에서 바로 연결하세요"</h4>
+                        <p class="text-bithumb-orange font-black text-center mb-8 text-sm md:text-base leading-relaxed">
+                            지금바로 연결하세요! 아래 단계를 통해 1분 이내에 완료할 수 있습니다.
+                        </p>
                         <div class="img-box mb-8 border-orange-200 border-2 shadow-sm">
                             <img src="STEP-KB-LINK.jpg" alt="계좌연결 위치" onerror="handleImgError(this, 'STEP-KB-LINK.jpg', '빗썸 앱 내 [입출금] > [원화] > 계좌 연결 메뉴 위치 안내')">
                         </div>
@@ -541,6 +545,7 @@
 
         window.handleKB = function (hasAccount) {
             const newGuide = document.getElementById('kb-new-content');
+            const linkGuide = document.getElementById('kb-link-content');
             const yesBtn = document.getElementById('kb-yes-btn');
             const noBtn = document.getElementById('kb-no-btn');
 
