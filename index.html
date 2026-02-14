@@ -11,10 +11,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
-        gtag('config', 'G-6WWQYTWN5J', {
-            send_page_view: true
-        });
+        gtag('config', 'G-6WWQYTWN5J', { 'send_page_view': true });
     </script>
 
 
@@ -480,14 +477,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const stepName = entry.target.id;
-                        
+
                         // gtag 존재 여부 확인 후 이벤트 전송
                         if (typeof gtag === 'function') {
                             gtag('event', 'step_view', {
                                 'step_name': stepName
                             });
                         }
-                        
+
                         // 이벤트 전송 후 해당 요소 감시 해제 (1회성)
                         observer.unobserve(entry.target);
                     }
